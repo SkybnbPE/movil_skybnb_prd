@@ -60,7 +60,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         reservations = res;
       });
     } catch (e) {
-      print('Error al cargar reservas: $e');
+      debugPrint('Error al cargar reservas: $e');
     }
   }
 
@@ -217,7 +217,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     
     // ✅ Días libres = GRIS, Días ocupados = ROSA
     final backgroundColor = hasReservation 
-        ? skybnbPinkLight.withOpacity(0.4)
+      ? skybnbPinkLight.withValues(alpha: 0.4)
         : grayLight;
     
     return Container(
@@ -249,11 +249,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
           ),
           
           // ✅ Avatar del huésped en el primer día
-          if (hasReservation && isFirstDay && reservation != null)
+          if (hasReservation && isFirstDay)
             Positioned(
               left: 2,
               top: 2,
-              child: _buildMiniAvatar(reservation),
+              child: _buildMiniAvatar(reservation!),
             ),
           
           // Círculo de selección/hoy
@@ -263,7 +263,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 width: 32,
                 height: 32,
                 decoration: BoxDecoration(
-                  color: isSelected ? skybnbPink : skybnbPink.withOpacity(0.3),
+                  color: isSelected
+                      ? skybnbPink
+                      : skybnbPink.withValues(alpha: 0.3),
                   shape: BoxShape.circle,
                 ),
                 child: Center(
@@ -368,9 +370,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: skybnbPinkLight.withOpacity(0.2),
+        color: skybnbPinkLight.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: skybnbPink.withOpacity(0.3)),
+        border: Border.all(color: skybnbPink.withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -425,7 +427,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       height: 50,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: skybnbPink.withOpacity(0.2),
+        color: skybnbPink.withValues(alpha: 0.2),
         border: Border.all(color: skybnbPink, width: 2),
       ),
       child: ClipOval(

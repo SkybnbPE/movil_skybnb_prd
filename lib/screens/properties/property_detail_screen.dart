@@ -308,7 +308,7 @@ class PropertyDetailScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
@@ -490,10 +490,10 @@ class _NightBox extends StatelessWidget {
       width: 80,
       height: 80,
       decoration: BoxDecoration(
-        color: PropertyDetailScreen.primaryPink.withOpacity(0.1),
+        color: PropertyDetailScreen.primaryPink.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: PropertyDetailScreen.primaryPink.withOpacity(0.3),
+          color: PropertyDetailScreen.primaryPink.withValues(alpha: 0.3),
         ),
       ),
       child: Column(

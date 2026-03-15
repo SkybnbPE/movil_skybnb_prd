@@ -15,7 +15,7 @@ class AppTheme {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      colorScheme: ColorScheme.light(
+      colorScheme: const ColorScheme.light(
         primary: primaryColor,
         secondary: secondaryColor,
       ),

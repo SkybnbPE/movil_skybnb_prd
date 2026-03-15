@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../services/google_sheets_service.dart';
 import '../main_navigation.dart';
+import '../../services/mock_data_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => isLoading = true);
 
     try {
-      final ownerId = await GoogleSheetsService.login(username, password);
+      final ownerId = await MockDataService.login(username, password);
 
       if (mounted) {
         setState(() => isLoading = false);

@@ -135,11 +135,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         color: skybnbPinkLight,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Row(
+      child: const Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(Icons.verified, color: skybnbPink, size: 18),
-          const SizedBox(width: 6),
+          SizedBox(width: 6),
           Text(
             'Propietario Verificado',
             style: TextStyle(
@@ -190,7 +190,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: skybnbPinkLight.withOpacity(0.3),
+              color: skybnbPinkLight.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(icon, color: skybnbPink, size: 24),

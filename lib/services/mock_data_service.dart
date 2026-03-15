@@ -35,6 +35,7 @@ class MockDataService {
             'https://a0.muscache.com/im/pictures/hosting/Hosting-1582730629766453455/original/48b179e7-c3f2-46b2-b4f8-dbdc4c2831f0.jpeg?im_w=1200',
         city: 'Lima',
         country: 'Perú',
+        pricePerNight: 130.0,
       ),
     ];
   }

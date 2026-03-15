@@ -26,7 +26,6 @@ class _MainNavigationState extends State<MainNavigation> {
 
   // Colores Skybnb
   static const Color skybnbPink = Color(0xFFE91E63);
-  static const Color skybnbPinkLight = Color(0xFFF8BBD0);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,7 @@ class _MainNavigationState extends State<MainNavigation> {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 10,
               offset: const Offset(0, -2),
             ),
