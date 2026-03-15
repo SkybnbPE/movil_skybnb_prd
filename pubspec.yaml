@@ -1,0 +1,39 @@
+name: Skybnb
+description: App de gestión de propiedades para Skybnb
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # Formateo de fechas y monedas
+  intl: ^0.18.1
+  
+  # Google Sheets API
+  googleapis: ^11.4.0
+  googleapis_auth: ^1.4.1
+  
+  # HTTP para requests
+  http: ^1.1.0
+  
+  # Calendario
+  table_calendar: ^3.0.9
+  
+  # Imágenes con cache
+  cached_network_image: ^3.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/logo.png
+    - assets/credentials.json
