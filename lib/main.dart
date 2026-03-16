@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart'; // ✅ Importar para inicializar locales
-import 'screens/login/login_screen.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:provider/provider.dart';
+import 'core/service_locator.dart';
+import 'presentation/screens/login/login_screen.dart';
 
 void main() async {
-  // ✅ Inicializar locales para español
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('es', null);
-  
   runApp(const SkybnbApp());
 }
 
@@ -15,17 +15,24 @@ class SkybnbApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Skybnb',
-      theme: ThemeData(
-        primaryColor: const Color(0xFFE91E63),
-        fontFamily: 'Roboto',
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFE91E63),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ServiceLocator.createAuthProvider()),
+        ChangeNotifierProvider(create: (_) => ServiceLocator.createPropertyProvider()),
+        ChangeNotifierProvider(create: (_) => ServiceLocator.createCalendarProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Skybnb',
+        theme: ThemeData(
+          primaryColor: const Color(0xFFE91E63),
+          fontFamily: 'Roboto',
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFFE91E63),
+          ),
         ),
+        home: const LoginScreen(),
       ),
-      home: const LoginScreen(),
     );
   }
 }

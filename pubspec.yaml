@@ -10,14 +10,13 @@ dependencies:
   flutter:
     sdk: flutter
   
+  # State management
+  provider: ^6.1.2
+
   # Formateo de fechas y monedas
   intl: ^0.18.1
   
-  # Google Sheets API
-  googleapis: ^11.4.0
-  googleapis_auth: ^1.4.1
-  
-  # HTTP para requests
+  # HTTP para requests a la API REST
   http: ^1.1.0
   
   # Calendario
@@ -36,4 +35,3 @@ flutter:
   
   assets:
     - assets/logo.png
-    - assets/credentials.json
