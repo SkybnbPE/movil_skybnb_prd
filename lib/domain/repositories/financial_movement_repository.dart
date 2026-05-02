@@ -7,4 +7,9 @@ abstract class FinancialMovementRepository {
     String propertyId,
     String periodMonth,
   );
+
+  /// Obtiene los movimientos financieros asociados a una reserva.
+  Future<List<FinancialMovementEntity>> getMovementsByReservation(
+    String reservationId,
+  );
 }

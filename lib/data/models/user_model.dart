@@ -25,25 +25,25 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['_id'] as String,
-      username: json['username'] as String,
-      fullName: json['full_name'] as String,
-      dni: json['dni'] as String,
-      phone: json['phone'] as String,
-      email: json['email'] as String,
-      profilePictureUrl: json['profile_picture_url'] as String?,
-      status: json['status'] as String,
+      id: json['id'] as String? ?? json['_id'] as String? ?? '',
+      username: json['username'] as String? ?? '',
+      fullName: json['fullName'] as String? ?? '',
+      dni: json['dni'] as String? ?? '',
+      phone: json['phone'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      profilePictureUrl: json['profilePictureUrl'] as String?,
+      status: json['status'] as String? ?? 'active',
     );
   }
 
   Map<String, dynamic> toJson() => {
-        '_id': id,
+        'id': id,
         'username': username,
-        'full_name': fullName,
+        'fullName': fullName,
         'dni': dni,
         'phone': phone,
         'email': email,
-        'profile_picture_url': profilePictureUrl,
+        'profilePictureUrl': profilePictureUrl,
         'status': status,
       };
 

@@ -23,23 +23,42 @@ class PropertyPricing {
 
 /// Pricing de una reserva (monto bruto cobrado al huésped + comisión plataforma).
 class ReservationPricing {
-  final double grossAmount;
+  final double total;
+  final double nightlyRate;
+  final int nights;
+  final double cleaningFee;
   final String currency;
   final double platformFee;
 
   const ReservationPricing({
-    required this.grossAmount,
+    required this.total,
+    required this.nightlyRate,
+    required this.nights,
+    required this.cleaningFee,
     required this.currency,
     required this.platformFee,
   });
 
+  /// Alias para total (mantenido por compatibilidad)
+  double get grossAmount => total;
+
   @override
   bool operator ==(Object other) =>
       other is ReservationPricing &&
-      grossAmount == other.grossAmount &&
+      total == other.total &&
+      nightlyRate == other.nightlyRate &&
+      nights == other.nights &&
+      cleaningFee == other.cleaningFee &&
       currency == other.currency &&
       platformFee == other.platformFee;
 
   @override
-  int get hashCode => Object.hash(grossAmount, currency, platformFee);
+  int get hashCode => Object.hash(
+        total,
+        nightlyRate,
+        nights,
+        cleaningFee,
+        currency,
+        platformFee,
+      );
 }

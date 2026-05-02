@@ -22,4 +22,10 @@ class ReservationRepositoryImpl implements ReservationRepository {
     final models = await _remote.getAllReservations(propertyId);
     return models.map((m) => m.toEntity()).toList();
   }
+
+  @override
+  Future<ReservationEntity> getReservationDetail(String reservationId) async {
+    final model = await _remote.getReservationById(reservationId);
+    return model.toEntity();
+  }
 }

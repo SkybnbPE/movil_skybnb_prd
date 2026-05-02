@@ -8,9 +8,11 @@ import '../domain/usecases/auth_usecases.dart';
 import '../domain/usecases/property_usecases.dart';
 import '../domain/usecases/reservation_usecases.dart';
 import '../domain/usecases/get_monthly_statement_usecase.dart';
+import '../domain/usecases/get_movements_by_reservation_usecase.dart';
 import '../application/providers/auth_provider.dart';
 import '../application/providers/property_provider.dart';
 import '../application/providers/calendar_provider.dart';
+import '../application/providers/property_detail_provider.dart';
 
 /// Composición de dependencias de la aplicación.
 /// Registra datasources → repositorios → use cases → providers.
@@ -19,7 +21,7 @@ import '../application/providers/calendar_provider.dart';
 class ServiceLocator {
   ServiceLocator._();
 
-  static const String _baseUrl = 'https://api.skybnb.app/v1';
+  static const String _baseUrl = 'https://nlqsrvbc57itlsyim6jhccid440qpbwj.lambda-url.sa-east-1.on.aws';
 
   // ─── Shared HTTP client ───────────────────────────────────────────────────
   static final http.Client _httpClient = http.Client();
@@ -51,6 +53,8 @@ class ServiceLocator {
     _reservationRepo,
     _financialRepo,
   );
+  static final getMovementsByReservationUseCase =
+      GetMovementsByReservationUseCase(_financialRepo);
 
   // ─── Providers (factories — cada Provider obtiene sus use cases) ──────────
   static AuthProvider createAuthProvider() => AuthProvider(
@@ -60,12 +64,16 @@ class ServiceLocator {
 
   static PropertyProvider createPropertyProvider() => PropertyProvider(
         getPropertiesUseCase: getPropertiesUseCase,
-        getAvailablePeriodsUseCase: getAvailablePeriodsUseCase,
-        getMonthlyStatementUseCase: getMonthlyStatementUseCase,
       );
 
   static CalendarProvider createCalendarProvider() => CalendarProvider(
         getPropertiesUseCase: getPropertiesUseCase,
         getAllReservationsUseCase: getAllReservationsUseCase,
+        getMovementsByReservationUseCase: getMovementsByReservationUseCase,
+      );
+
+  static PropertyDetailProvider createPropertyDetailProvider() => PropertyDetailProvider(
+        getAllReservationsUseCase: getAllReservationsUseCase,
+        getMovementsByReservationUseCase: getMovementsByReservationUseCase,
       );
 }

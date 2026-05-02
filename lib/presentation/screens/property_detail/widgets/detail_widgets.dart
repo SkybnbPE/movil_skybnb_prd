@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:provider/provider.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/date_formatter.dart';
 import '../../../../core/utils/currency_formatter.dart';
 import '../../../../domain/models/reservation_entity.dart';
-import '../../../../domain/models/monthly_statement_result.dart';
 import '../../../../domain/models/property_entity.dart';
+import '../../../../application/providers/property_detail_provider.dart';
 import '../../../shared/section_card.dart';
 import '../../../shared/status_badge.dart';
+import 'reservation_financial_bottom_sheet.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PROPERTY HEADER
@@ -32,10 +34,12 @@ class PropertyHeader extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: property.coverImage != null
-                  ? Image.network(
-                      property.coverImage!,
+                  ? CachedNetworkImage(
+                      imageUrl: property.coverImage!,
                       fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) =>
+                      placeholder: (_, __) => const Center(
+                          child: CircularProgressIndicator(strokeWidth: 2)),
+                      errorWidget: (_, __, ___) =>
                           const Icon(Icons.image, size: 40, color: Colors.white),
                     )
                   : const Icon(Icons.image, size: 40, color: Colors.white),
@@ -76,12 +80,18 @@ class PropertyHeader extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// RESERVATION BOXES SECTION — cajitas de noches
+// PROPERTY SUMMARY SECTION
 // ─────────────────────────────────────────────────────────────────────────────
 
-class ReservationBoxesSection extends StatelessWidget {
-  final MonthlyStatementResult statement;
-  const ReservationBoxesSection({super.key, required this.statement});
+class PropertySummarySection extends StatelessWidget {
+  final double totalIncome;
+  final int totalReservations;
+
+  const PropertySummarySection({
+    super.key,
+    required this.totalIncome,
+    required this.totalReservations,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -89,108 +99,131 @@ class ReservationBoxesSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Text(
+            'Resumen Histórico',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Reservas',
-                      style: TextStyle(fontWeight: FontWeight.w600)),
-                  Text(
-                    statement.formattedPeriod,
-                    style: const TextStyle(
-                        fontSize: 12, color: AppColors.textSecondary),
-                  ),
-                ],
+              _SummaryBox(
+                title: 'Ingreso Total',
+                value: CurrencyFormatter.format(totalIncome),
+                icon: Icons.attach_money,
+                color: AppColors.success,
               ),
-              Text(
-                '${statement.reservations.length} reservas',
-                style: const TextStyle(
-                    fontSize: 13, color: AppColors.textSecondary),
+              const SizedBox(width: 12),
+              _SummaryBox(
+                title: 'Reservas Totales',
+                value: totalReservations.toString(),
+                icon: Icons.book_online,
+                color: AppColors.primary,
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          statement.reservations.isEmpty
-              ? const Center(
-                  child: Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Text(
-                      'No hay reservas en este periodo',
-                      style: TextStyle(color: AppColors.textSecondary),
-                    ),
-                  ),
-                )
-              : Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: statement.reservations
-                      .map((r) => NightBox(nights: r.stay.nights))
-                      .toList(),
-                ),
         ],
       ),
     );
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// NIGHT BOX — cajita individual de noches
-// ─────────────────────────────────────────────────────────────────────────────
+class _SummaryBox extends StatelessWidget {
+  final String title;
+  final String value;
+  final IconData icon;
+  final Color color;
 
-class NightBox extends StatelessWidget {
-  final int nights;
-  const NightBox({super.key, required this.nights});
+  const _SummaryBox({
+    required this.title,
+    required this.value,
+    required this.icon,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 80,
-      height: 80,
-      decoration: BoxDecoration(
-        color: AppColors.primary.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.bed, color: AppColors.primary, size: 28),
-          const SizedBox(height: 6),
-          Text(
-            '$nights días',
-            style: const TextStyle(
-              color: AppColors.primary,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: color.withValues(alpha: 0.3)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(icon, color: color, size: 24),
+            const SizedBox(height: 8),
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
             ),
-          ),
-        ],
+            const SizedBox(height: 4),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 12,
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// RESERVATION LIST SECTION
+// PAGINATED RESERVATION LIST SECTION
 // ─────────────────────────────────────────────────────────────────────────────
 
-class ReservationListSection extends StatelessWidget {
+class ReservationPaginatedListSection extends StatelessWidget {
   final List<ReservationEntity> reservations;
-  const ReservationListSection({super.key, required this.reservations});
+  final bool canLoadMore;
+  final VoidCallback onLoadMore;
+
+  const ReservationPaginatedListSection({
+    super.key,
+    required this.reservations,
+    required this.canLoadMore,
+    required this.onLoadMore,
+  });
 
   @override
   Widget build(BuildContext context) {
     if (reservations.isEmpty) return const SizedBox.shrink();
+    
     return SectionCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Detalle de Reservas',
-              style: TextStyle(fontWeight: FontWeight.w600)),
+          const Text('Reservas',
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
           const SizedBox(height: 16),
-          ...reservations.map((r) => ReservationItemCard(reservation: r)),
+          ...reservations.map((r) {
+            final provider = context.read<PropertyDetailProvider>();
+            return ReservationItemCard(
+              reservation: r, 
+              netAmount: provider.getReservationNet(r.id),
+            );
+          }),
+          if (canLoadMore)
+            Center(
+              child: TextButton.icon(
+                onPressed: onLoadMore,
+                icon: const Icon(Icons.expand_more, color: AppColors.primary),
+                label: const Text(
+                  'Ver más reservas',
+                  style: TextStyle(color: AppColors.primary),
+                ),
+              ),
+            ),
         ],
       ),
     );
@@ -203,7 +236,22 @@ class ReservationListSection extends StatelessWidget {
 
 class ReservationItemCard extends StatelessWidget {
   final ReservationEntity reservation;
-  const ReservationItemCard({super.key, required this.reservation});
+  final double netAmount;
+  
+  const ReservationItemCard({
+    super.key, 
+    required this.reservation,
+    required this.netAmount,
+  });
+
+  void _showFinancialSummary(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => ReservationFinancialBottomSheet(reservation: reservation),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,227 +260,90 @@ class ReservationItemCard extends StatelessWidget {
     final checkOut = DateFormatter.toFull(reservation.stay.checkOut);
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.grey.shade50,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: AppColors.border),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.only(bottom: 12),
+      child: InkWell(
+        onTap: () => _showFinancialSummary(context),
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade50,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppColors.border),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          guest?.name ?? '—',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 14),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          '$checkIn - $checkOut',
+                          style: const TextStyle(
+                              fontSize: 12, color: AppColors.textSecondary),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        guest?.name ?? '—',
+                        CurrencyFormatter.format(netAmount),
                         style: const TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 14),
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primary,
+                          fontSize: 16,
+                        ),
                       ),
-                      const SizedBox(height: 4),
                       Text(
-                        '$checkIn - $checkOut',
+                        '${reservation.stay.nights} noches',
                         style: const TextStyle(
                             fontSize: 12, color: AppColors.textSecondary),
                       ),
                     ],
                   ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      CurrencyFormatter.format(
-                          reservation.pricing.grossAmount),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primary,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Text(
-                      '${reservation.stay.nights} noches',
-                      style: const TextStyle(
-                          fontSize: 12, color: AppColors.textSecondary),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            if (reservation.notes != null &&
-                reservation.notes!.isNotEmpty) ...[
-              const SizedBox(height: 8),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  reservation.notes!,
-                  style: TextStyle(fontSize: 11, color: Colors.blue.shade700),
-                ),
-              ),
-            ],
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                StatusBadge(
-                  text: reservation.status,
-                  color: reservation.isCompleted
-                      ? AppColors.success
-                      : AppColors.warning,
-                ),
-                const SizedBox(width: 8),
-                StatusBadge(text: reservation.source, color: AppColors.info),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// FINANCIAL SUMMARY SECTION
-// ─────────────────────────────────────────────────────────────────────────────
-
-class FinancialSummarySection extends StatelessWidget {
-  final MonthlyStatementResult statement;
-  const FinancialSummarySection({super.key, required this.statement});
-
-  @override
-  Widget build(BuildContext context) {
-    return SectionCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Resumen Financiero',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-          ),
-          const SizedBox(height: 16),
-          _FinRow(
-            title: 'Total Generado',
-            subtitle: '(${statement.totalNights} noches)',
-            value: CurrencyFormatter.format(statement.totalGross),
-            color: AppColors.textPrimary,
-          ),
-          _FinRow(
-            title: 'Comisión Plataforma (3%)',
-            value:
-                '- ${CurrencyFormatter.format(statement.platformFee3Pct)}',
-            color: AppColors.error,
-          ),
-          const Divider(height: 24),
-          _FinRow(
-            title: 'Subtotal',
-            value: CurrencyFormatter.format(statement.baseAfterPlatform),
-            color: AppColors.textSecondary,
-          ),
-          const Divider(height: 24),
-          _FinRow(
-            title: 'Gastos (${statement.expenses.length} items)',
-            value:
-                '- ${CurrencyFormatter.format(statement.totalExpenses)}',
-            color: AppColors.error,
-          ),
-          const Divider(height: 24),
-          _FinRow(
-            title: 'Base para comisión',
-            value:
-                CurrencyFormatter.format(statement.baseAfterExpenses),
-            color: AppColors.textSecondary,
-          ),
-          const Divider(height: 24),
-          _FinRow(
-            title: 'Comisión Skybnb (15%)',
-            value:
-                '- ${CurrencyFormatter.format(statement.skybnbFee15Pct)}',
-            color: AppColors.error,
-          ),
-          _FinRow(
-            title: 'IGV (18% sobre comisión)',
-            value:
-                '- ${CurrencyFormatter.format(statement.igv18PctOnSkybnb)}',
-            color: AppColors.error,
-          ),
-          const SizedBox(height: 16),
-          const Divider(thickness: 2),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Ingreso Neto',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16)),
-                  Text('Para ti',
-                      style: TextStyle(
-                          fontSize: 12, color: AppColors.textSecondary)),
                 ],
               ),
-              Text(
-                CurrencyFormatter.format(statement.netToOwner),
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.success,
-                ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      StatusBadge(
+                        text: reservation.status,
+                        color: reservation.isCompleted
+                            ? AppColors.success
+                            : AppColors.warning,
+                      ),
+                      const SizedBox(width: 8),
+                      StatusBadge(text: reservation.source, color: AppColors.info),
+                    ],
+                  ),
+                  const Text(
+                    'Ver finanzas',
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class _FinRow extends StatelessWidget {
-  final String title;
-  final String? subtitle;
-  final String value;
-  final Color color;
-
-  const _FinRow({
-    required this.title,
-    this.subtitle,
-    required this.value,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title,
-                  style: const TextStyle(color: AppColors.textSecondary)),
-              if (subtitle != null)
-                Text(subtitle!,
-                    style: const TextStyle(
-                        fontSize: 11, color: AppColors.textSecondary)),
-            ],
-          ),
-          Text(value,
-              style:
-                  TextStyle(fontWeight: FontWeight.w500, color: color)),
-        ],
+        ),
       ),
     );
   }
@@ -475,10 +386,6 @@ class GuestAvatar extends StatelessWidget {
     );
   }
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-// GUEST MINI AVATAR — usado en celdas del calendario
-// ─────────────────────────────────────────────────────────────────────────────
 
 class GuestMiniAvatar extends StatelessWidget {
   final ReservationEntity reservation;
@@ -528,70 +435,6 @@ class _Initials extends StatelessWidget {
           fontWeight: FontWeight.bold,
           fontSize: fontSize,
         ),
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// RESERVATION CARD — lista debajo del calendario
-// ─────────────────────────────────────────────────────────────────────────────
-
-class ReservationCard extends StatelessWidget {
-  final ReservationEntity reservation;
-  const ReservationCard({super.key, required this.reservation});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppColors.primaryLight.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(12),
-        border:
-            Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
-      ),
-      child: Row(
-        children: [
-          GuestAvatar(reservation: reservation),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  reservation.primaryGuest?.name ?? '—',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 14),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  '${DateFormatter.toDayMonth(reservation.stay.checkIn)}'
-                  ' - ${DateFormatter.toDayMonth(reservation.stay.checkOut)}',
-                  style: const TextStyle(
-                      fontSize: 12, color: AppColors.textSecondary),
-                ),
-                Text(
-                  '${reservation.stay.nights} noches',
-                  style: const TextStyle(
-                      fontSize: 12,
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w500),
-                ),
-              ],
-            ),
-          ),
-          Text(
-            CurrencyFormatter.formatRounded(
-                reservation.pricing.grossAmount),
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              color: AppColors.primary,
-            ),
-          ),
-        ],
       ),
     );
   }

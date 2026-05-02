@@ -28,30 +28,30 @@ class FinancialMovementModel {
 
   factory FinancialMovementModel.fromJson(Map<String, dynamic> json) {
     return FinancialMovementModel(
-      id: json['_id'] as String,
-      propertyId: json['property_id'] as String,
-      reservationId: json['reservation_id'] as String?,
-      movementType: json['movement_type'] as String,
+      id: json['id'] as String? ?? json['_id'] as String? ?? '',
+      propertyId: json['propertyId'] as String? ?? json['property_id'] as String? ?? '',
+      reservationId: json['reservationId'] as String? ?? json['reservation_id'] as String?,
+      movementType: json['movementType'] as String? ?? json['movement_type'] as String? ?? 'expense',
       category: json['category'] as String? ?? '',
       amount: (json['amount'] as num).toDouble(),
       currency: json['currency'] as String? ?? 'PEN',
       description: json['description'] as String? ?? '',
       date: DateTime.parse(json['date'] as String),
-      periodMonth: json['period_month'] as String,
+      periodMonth: json['periodMonth'] as String? ?? json['period_month'] as String? ?? '',
     );
   }
 
   Map<String, dynamic> toJson() => {
-        '_id': id,
-        'property_id': propertyId,
-        'reservation_id': reservationId,
-        'movement_type': movementType,
+        'id': id,
+        'propertyId': propertyId,
+        'reservationId': reservationId,
+        'movementType': movementType,
         'category': category,
         'amount': amount,
         'currency': currency,
         'description': description,
         'date': date.toIso8601String(),
-        'period_month': periodMonth,
+        'periodMonth': periodMonth,
       };
 
   FinancialMovementEntity toEntity() => FinancialMovementEntity(

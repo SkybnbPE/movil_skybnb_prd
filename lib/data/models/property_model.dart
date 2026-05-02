@@ -31,12 +31,16 @@ class PropertyModel {
 
   factory PropertyModel.fromJson(Map<String, dynamic> json) {
     return PropertyModel(
-      id: json['_id'] as String,
-      ownerId: json['owner_id'] as String,
-      name: json['name'] as String,
+      id: json['id'] as String? ?? json['_id'] as String? ?? '',
+      ownerId: json['userId'] as String? ?? json['owner_id'] as String? ?? '',
+      name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      locationJson: Map<String, dynamic>.from(json['location'] as Map? ?? {}),
-      media: List<String>.from(json['media'] as List? ?? []),
+      locationJson: json['location'] is String
+          ? {'city': json['location']}
+          : Map<String, dynamic>.from(json['location'] as Map? ?? {}),
+      media: json['media'] != null
+          ? List<String>.from(json['media'] as List)
+          : (json['thumbnail'] != null ? [json['thumbnail'] as String] : []),
       capacityJson: Map<String, dynamic>.from(json['capacity'] as Map? ?? {}),
       pricingJson: Map<String, dynamic>.from(json['pricing'] as Map? ?? {}),
       amenities: List<String>.from(json['amenities'] as List? ?? []),
@@ -45,8 +49,8 @@ class PropertyModel {
   }
 
   Map<String, dynamic> toJson() => {
-        '_id': id,
-        'owner_id': ownerId,
+        'id': id,
+        'userId': ownerId,
         'name': name,
         'description': description,
         'location': locationJson,
@@ -76,12 +80,12 @@ class PropertyModel {
       capacity: Capacity(
         bedrooms: capacityJson['bedrooms'] as int? ?? 0,
         bathrooms: capacityJson['bathrooms'] as int? ?? 0,
-        maxGuests: capacityJson['max_guests'] as int? ?? 0,
+        maxGuests: capacityJson['total'] as int? ?? capacityJson['max_guests'] as int? ?? 0,
       ),
       pricing: PropertyPricing(
-        basePrice: (pricingJson['base_price'] as num? ?? 0).toDouble(),
+        basePrice: (pricingJson['nightlyRate'] as num? ?? pricingJson['base_price'] as num? ?? 0).toDouble(),
         currency: pricingJson['currency'] as String? ?? 'PEN',
-        cleaningFee: (pricingJson['cleaning_fee'] as num? ?? 0).toDouble(),
+        cleaningFee: (pricingJson['cleaningFee'] as num? ?? pricingJson['cleaning_fee'] as num? ?? 0).toDouble(),
       ),
       amenities: amenities,
       status: status,

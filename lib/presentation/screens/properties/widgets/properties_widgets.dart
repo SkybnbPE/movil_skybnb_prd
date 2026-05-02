@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/utils/date_formatter.dart';
 import '../../../../domain/models/property_entity.dart';
-import '../../../../domain/models/monthly_statement_result.dart';
-import '../../../../core/utils/currency_formatter.dart';
 
 /// Tarjeta de propiedad en la lista principal.
-/// Stateless: recibe entidad y statement como parámetros.
+/// Stateless: recibe entidad como parámetro.
 class PropertyListCard extends StatelessWidget {
   final PropertyEntity property;
-  final MonthlyStatementResult? statement;
   final VoidCallback? onTap;
 
   const PropertyListCard({
     super.key,
     required this.property,
-    this.statement,
     this.onTap,
   });
 
@@ -51,10 +47,16 @@ class PropertyListCard extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: property.coverImage != null
-                      ? Image.network(
-                          property.coverImage!,
+                      ? CachedNetworkImage(
+                          imageUrl: property.coverImage!,
                           fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) => const Icon(
+                          placeholder: (_, __) => const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          ),
+                          errorWidget: (_, __, ___) => const Icon(
                             Icons.image,
                             color: Colors.white,
                             size: 40,
@@ -94,17 +96,6 @@ class PropertyListCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    if (statement != null) ...[
-                      const SizedBox(height: 6),
-                      Text(
-                        'Ingreso neto: ${CurrencyFormatter.format(statement!.netToOwner)}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
                   ],
                 ),
               ),
@@ -113,70 +104,6 @@ class PropertyListCard extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-/// Selector de periodo mensual (dropdown).
-/// Stateless: recibe lista y callback.
-class PeriodSelector extends StatelessWidget {
-  final List<String> periods;
-  final String? selectedPeriod;
-  final ValueChanged<String?> onChanged;
-
-  const PeriodSelector({
-    super.key,
-    required this.periods,
-    required this.selectedPeriod,
-    required this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: const BoxDecoration(
-        color: AppColors.surface,
-        border: Border(bottom: BorderSide(color: AppColors.border)),
-      ),
-      child: Row(
-        children: [
-          const Icon(Icons.calendar_today,
-              size: 20, color: AppColors.textSecondary),
-          const SizedBox(width: 12),
-          const Text(
-            'Periodo:',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: AppColors.textSecondary,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.border),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  value: selectedPeriod,
-                  isExpanded: true,
-                  items: periods
-                      .map((p) => DropdownMenuItem(
-                            value: p,
-                            child: Text(DateFormatter.periodToLabel(p)),
-                          ))
-                      .toList(),
-                  onChanged: onChanged,
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

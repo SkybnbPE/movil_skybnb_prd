@@ -16,4 +16,12 @@ class FinancialMovementRepositoryImpl implements FinancialMovementRepository {
         await _remote.getMovementsByPeriod(propertyId, periodMonth);
     return models.map((m) => m.toEntity()).toList();
   }
+
+  @override
+  Future<List<FinancialMovementEntity>> getMovementsByReservation(
+    String reservationId,
+  ) async {
+    final models = await _remote.getMovementsByReservation(reservationId);
+    return models.map((m) => m.toEntity()).toList();
+  }
 }

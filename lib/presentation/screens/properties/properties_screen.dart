@@ -4,7 +4,7 @@ import '../../../application/providers/property_provider.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../domain/models/property_entity.dart';
-import '../../../domain/models/monthly_statement_result.dart';
+import '../../../core/service_locator.dart';
 import '../property_detail/property_detail_screen.dart';
 import 'widgets/properties_widgets.dart';
 
@@ -26,13 +26,14 @@ class _PropertiesScreenState extends State<PropertiesScreen> {
     });
   }
 
-  void _goToDetail(
-      BuildContext context, PropertyEntity property, MonthlyStatementResult statement) {
+  void _goToDetail(BuildContext context, PropertyEntity property) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) =>
-            PropertyDetailScreen(property: property, statement: statement),
+        builder: (_) => ChangeNotifierProvider(
+          create: (_) => ServiceLocator.createPropertyDetailProvider(),
+          child: PropertyDetailScreen(property: property),
+        ),
       ),
     );
   }
@@ -53,45 +54,28 @@ class _PropertiesScreenState extends State<PropertiesScreen> {
       ),
       body: provider.isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Column(
-              children: [
-                if (provider.availablePeriods.isNotEmpty)
-                  PeriodSelector(
-                    periods: provider.availablePeriods,
-                    selectedPeriod: provider.selectedPeriod,
-                    onChanged: (p) {
-                      if (p != null) provider.changePeriod(p);
+          : provider.properties.isEmpty
+              ? const Center(
+                  child: Text(
+                    AppStrings.noProperties,
+                    style: TextStyle(color: AppColors.textSecondary),
+                  ),
+                )
+              : RefreshIndicator(
+                  onRefresh: () => provider.loadData(widget.userId),
+                  color: AppColors.primary,
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(16),
+                    itemCount: provider.properties.length,
+                    itemBuilder: (context, index) {
+                      final property = provider.properties[index];
+                      return PropertyListCard(
+                        property: property,
+                        onTap: () => _goToDetail(context, property),
+                      );
                     },
                   ),
-                Expanded(
-                  child: provider.properties.isEmpty
-                      ? const Center(
-                          child: Text(
-                            AppStrings.noProperties,
-                            style:
-                                TextStyle(color: AppColors.textSecondary),
-                          ),
-                        )
-                      : ListView.builder(
-                          padding: const EdgeInsets.all(16),
-                          itemCount: provider.properties.length,
-                          itemBuilder: (context, index) {
-                            final property = provider.properties[index];
-                            final statement =
-                                provider.statements[property.id];
-                            return PropertyListCard(
-                              property: property,
-                              statement: statement,
-                              onTap: statement != null
-                                  ? () => _goToDetail(
-                                      context, property, statement)
-                                  : null,
-                            );
-                          },
-                        ),
                 ),
-              ],
-            ),
     );
   }
 }

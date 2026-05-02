@@ -10,4 +10,7 @@ abstract class ReservationRepository {
 
   /// Obtiene TODAS las reservas de una propiedad (para el calendario).
   Future<List<ReservationEntity>> getAllReservations(String propertyId);
+
+  /// Obtiene el detalle completo de una reserva específica usando su ID.
+  Future<ReservationEntity> getReservationDetail(String reservationId);
 }

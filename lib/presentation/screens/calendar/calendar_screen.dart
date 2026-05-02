@@ -57,13 +57,22 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         },
                       ),
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            _buildCalendar(provider),
-                            const SizedBox(height: 20),
-                            _buildReservationsList(provider),
-                          ],
+                      child: RefreshIndicator(
+                        onRefresh: () async {
+                          if (provider.selectedProperty != null) {
+                            await provider.loadReservations(provider.selectedProperty!.id);
+                          }
+                        },
+                        color: AppColors.primary,
+                        child: SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          child: Column(
+                            children: [
+                              _buildCalendar(provider),
+                              const SizedBox(height: 20),
+                              _buildReservationsList(provider),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -131,7 +140,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 12),
-          ...monthRes.map((r) => ReservationCard(reservation: r)),
+          ...monthRes.map((r) {
+            return ReservationItemCard(
+              reservation: r,
+              netAmount: provider.getReservationNet(r.id),
+            );
+          }),
           const SizedBox(height: 20),
         ],
       ),
