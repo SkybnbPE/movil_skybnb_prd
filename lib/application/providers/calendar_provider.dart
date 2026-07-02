@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
+import 'package:skybnb/core/errors/exception_mapper.dart';
+import 'package:skybnb/core/utils/reservation_net_calculator.dart';
 import 'package:skybnb/domain/models/property_entity.dart';
 import 'package:skybnb/domain/models/reservation_entity.dart';
+import 'package:skybnb/domain/usecases/get_movements_by_reservation_usecase.dart';
 import 'package:skybnb/domain/usecases/property_usecases.dart';
 import 'package:skybnb/domain/usecases/reservation_usecases.dart';
-import 'package:skybnb/domain/usecases/get_movements_by_reservation_usecase.dart';
-import 'package:skybnb/core/utils/reservation_net_calculator.dart';
-import 'package:skybnb/core/errors/exception_mapper.dart';
 
 class CalendarProvider extends ChangeNotifier {
   final GetPropertiesUseCase getPropertiesUseCase;

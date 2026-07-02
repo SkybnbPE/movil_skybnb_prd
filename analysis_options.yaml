@@ -8,6 +8,16 @@ analyzer:
     prefer_final_locals: warning
     avoid_unnecessary_containers: warning
     sized_box_for_whitespace: warning
+    public_member_api_docs: ignore
+    lines_longer_than_80_chars: ignore
+    sort_constructors_first: ignore
+    require_trailing_commas: ignore
+    always_put_required_named_parameters_first: ignore
+    avoid_equals_and_hash_code_on_mutable_classes: ignore
+    prefer_int_literals: ignore
+    omit_local_variable_types: ignore
+    avoid_redundant_argument_values: ignore
+    sort_pub_dependencies: ignore
   exclude:
     - "lib/**/*.g.dart"
     - "lib/**/*.freezed.dart"
@@ -24,8 +34,3 @@ linter:
     - prefer_is_empty
     - prefer_is_not_empty
     - avoid_relative_lib_imports
-    - public_member_api_docs: false
-    - lines_longer_than_80_chars: false
-    - sort_constructors_first: false
-    - require_trailing_commas: false
-    - prefer_relative_imports: false

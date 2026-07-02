@@ -1,9 +1,11 @@
-import 'package:skybnb/domain/models/value_objects/location.dart';
+import 'package:flutter/foundation.dart';
 import 'package:skybnb/domain/models/value_objects/capacity.dart';
+import 'package:skybnb/domain/models/value_objects/location.dart';
 import 'package:skybnb/domain/models/value_objects/pricing.dart';
 
 /// Entidad de dominio: Propiedad.
 /// Alineado al schema MongoDB: Properties Collection.
+@immutable
 class PropertyEntity {
   final String id;           // _id
   final String ownerId;

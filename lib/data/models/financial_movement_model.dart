@@ -16,7 +16,6 @@ class FinancialMovementModel {
   const FinancialMovementModel({
     required this.id,
     required this.propertyId,
-    this.reservationId,
     required this.movementType,
     required this.category,
     required this.amount,
@@ -24,6 +23,7 @@ class FinancialMovementModel {
     required this.description,
     required this.date,
     required this.periodMonth,
+    this.reservationId,
   });
 
   factory FinancialMovementModel.fromJson(Map<String, dynamic> json) {

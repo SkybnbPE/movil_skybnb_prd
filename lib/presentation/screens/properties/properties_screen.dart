@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:skybnb/application/providers/property_provider.dart';
 import 'package:skybnb/core/constants/app_colors.dart';
 import 'package:skybnb/core/constants/app_strings.dart';
-import 'package:skybnb/domain/models/property_entity.dart';
 import 'package:skybnb/core/service_locator.dart';
-import 'package:skybnb/presentation/screens/property_detail/property_detail_screen.dart';
+import 'package:skybnb/domain/models/property_entity.dart';
 import 'package:skybnb/presentation/screens/properties/widgets/properties_widgets.dart';
+import 'package:skybnb/presentation/screens/property_detail/property_detail_screen.dart';
 
 /// StatefulWidget: dispara la carga de datos al entrar y observa el Provider.
 class PropertiesScreen extends StatefulWidget {
@@ -29,7 +29,7 @@ class _PropertiesScreenState extends State<PropertiesScreen> {
   void _goToDetail(BuildContext context, PropertyEntity property) {
     Navigator.push(
       context,
-      MaterialPageRoute(
+      MaterialPageRoute<void>(
         builder: (_) => ChangeNotifierProvider(
           create: (_) => ServiceLocator.createPropertyDetailProvider(),
           child: PropertyDetailScreen(property: property),

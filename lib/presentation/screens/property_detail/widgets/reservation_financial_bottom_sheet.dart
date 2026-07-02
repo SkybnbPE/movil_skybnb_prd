@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:skybnb/application/providers/reservation_financial_provider.dart';
 import 'package:skybnb/core/constants/app_colors.dart';
 import 'package:skybnb/core/constants/app_strings.dart';
+import 'package:skybnb/core/service_locator.dart';
 import 'package:skybnb/core/utils/currency_formatter.dart';
 import 'package:skybnb/domain/models/reservation_entity.dart';
-import 'package:skybnb/application/providers/reservation_financial_provider.dart';
-import 'package:skybnb/core/service_locator.dart';
 
 class ReservationFinancialBottomSheet extends StatefulWidget {
   final ReservationEntity reservation;
@@ -76,7 +76,7 @@ class _ReservationFinancialBottomSheetState
                 if (provider.isLoading) {
                   return const Center(
                     child: Padding(
-                      padding: EdgeInsets.all(32.0),
+                      padding: EdgeInsets.all(32),
                       child: CircularProgressIndicator(),
                     ),
                   );
@@ -92,7 +92,7 @@ class _ReservationFinancialBottomSheetState
                 if (data == null || data.grouped.values.every((v) => v == 0)) {
                   return const Center(
                     child: Padding(
-                      padding: EdgeInsets.all(32.0),
+                      padding: EdgeInsets.all(32),
                     child: Text(
                       AppStrings.noMovements,
                         style: TextStyle(color: AppColors.textSecondary),

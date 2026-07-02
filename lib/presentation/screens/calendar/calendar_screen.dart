@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:skybnb/application/providers/calendar_provider.dart';
 import 'package:skybnb/core/constants/app_colors.dart';
 import 'package:skybnb/core/constants/app_constants.dart';
@@ -9,6 +8,7 @@ import 'package:skybnb/core/constants/app_strings.dart';
 import 'package:skybnb/domain/models/property_entity.dart';
 import 'package:skybnb/presentation/screens/property_detail/widgets/guest_avatar.dart';
 import 'package:skybnb/presentation/screens/property_detail/widgets/reservation_card.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 /// StatefulWidget: gestiona el estado local del calendario (focusedDay, selectedDay).
 /// El estado de datos (reservas, propiedades) lo gestiona CalendarProvider.
@@ -90,7 +90,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
       lastDay: DateTime(AppConstants.calendarLastYear, 12, 31),
       focusedDay: _focusedDay,
       selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-      calendarFormat: CalendarFormat.month,
       startingDayOfWeek: StartingDayOfWeek.monday,
       headerStyle: const HeaderStyle(
         formatButtonVisible: false,
@@ -100,7 +99,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         rightChevronIcon: Icon(Icons.chevron_right, color: AppColors.primary),
       ),
       calendarStyle: const CalendarStyle(markersMaxCount: 0),
-      calendarBuilders: CalendarBuilders(
+      calendarBuilders: CalendarBuilders<Widget>(
         defaultBuilder: (_, day, __) =>
             _DayCell(day: day, provider: provider),
         selectedBuilder: (_, day, __) =>
@@ -226,8 +225,8 @@ class _DayCell extends StatelessWidget {
     final hasRes = reservation != null;
 
     final dayStart = DateTime(day.year, day.month, day.day);
-    bool isFirst = false;
-    bool isLast = false;
+    final isFirst = false;
+    final isLast = false;
     if (hasRes) {
       final checkIn = DateTime(reservation.stay.checkIn.year,
           reservation.stay.checkIn.month, reservation.stay.checkIn.day);

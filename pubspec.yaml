@@ -9,27 +9,27 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  
-  # State management
-  provider: ^6.1.2
 
-  # Formateo de fechas y monedas
-  intl: ^0.18.1
-  
-  # HTTP para requests a la API REST
-  http: ^1.1.0
-  
-  # Calendario
-  table_calendar: ^3.0.9
-  
   # Imágenes con cache
   cached_network_image: ^3.3.0
+
+  # Variables de entorno
+  flutter_dotenv: ^5.1.0
 
   # Almacenamiento seguro para tokens
   flutter_secure_storage: ^9.0.0
 
-  # Variables de entorno
-  flutter_dotenv: ^5.1.0
+  # HTTP para requests a la API REST
+  http: ^1.1.0
+
+  # Formateo de fechas y monedas
+  intl: ^0.18.1
+
+  # State management
+  provider: ^6.1.2
+
+  # Calendario
+  table_calendar: ^3.0.9
 
 dev_dependencies:
   flutter_test:
@@ -41,4 +41,3 @@ flutter:
   
   assets:
     - assets/logo.png
-    - .env

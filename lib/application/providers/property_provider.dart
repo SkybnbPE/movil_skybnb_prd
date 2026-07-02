@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:skybnb/core/errors/exception_mapper.dart';
 import 'package:skybnb/domain/models/property_entity.dart';
 import 'package:skybnb/domain/usecases/property_usecases.dart';
-import 'package:skybnb/core/errors/exception_mapper.dart';
 
 class PropertyProvider extends ChangeNotifier {
   final GetPropertiesUseCase getPropertiesUseCase;

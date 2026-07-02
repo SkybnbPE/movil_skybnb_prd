@@ -19,8 +19,8 @@ class UserModel {
     required this.dni,
     required this.phone,
     required this.email,
-    this.profilePictureUrl,
     required this.status,
+    this.profilePictureUrl,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {

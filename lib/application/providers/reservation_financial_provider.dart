@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:skybnb/core/errors/exception_mapper.dart';
+import 'package:skybnb/core/utils/financial_category_normalizer.dart';
 import 'package:skybnb/domain/models/financial_movement_entity.dart';
 import 'package:skybnb/domain/usecases/get_movements_by_reservation_usecase.dart';
-import 'package:skybnb/core/utils/financial_category_normalizer.dart';
-import 'package:skybnb/core/errors/exception_mapper.dart';
 
 /// Resultado agrupado de movimientos financieros para una reserva.
 class FinancialGroupedData {

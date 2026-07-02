@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:skybnb/application/providers/property_detail_provider.dart';
 import 'package:skybnb/core/constants/app_colors.dart';
 import 'package:skybnb/core/constants/app_strings.dart';
 import 'package:skybnb/domain/models/property_entity.dart';
-import 'package:skybnb/application/providers/property_detail_provider.dart';
 import 'package:skybnb/presentation/screens/property_detail/widgets/property_header.dart';
 import 'package:skybnb/presentation/screens/property_detail/widgets/property_summary_section.dart';
 import 'package:skybnb/presentation/screens/property_detail/widgets/reservation_card.dart';

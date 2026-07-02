@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
+
 /// Precio base de alquiler de una propiedad.
+@immutable
 class PropertyPricing {
   final double basePrice;
   final String currency;
@@ -22,6 +25,7 @@ class PropertyPricing {
 }
 
 /// Pricing de una reserva (monto bruto cobrado al huésped + comisión plataforma).
+@immutable
 class ReservationPricing {
   final double total;
   final double nightlyRate;

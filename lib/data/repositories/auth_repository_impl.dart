@@ -1,7 +1,7 @@
-import 'package:skybnb/domain/models/user/user_entity.dart';
-import 'package:skybnb/domain/repositories/auth_repository.dart';
 import 'package:skybnb/data/datasources/remote/api_remote_datasource.dart';
 import 'package:skybnb/data/models/user_model.dart';
+import 'package:skybnb/domain/models/user/user_entity.dart';
+import 'package:skybnb/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final ApiRemoteDataSource _remote;

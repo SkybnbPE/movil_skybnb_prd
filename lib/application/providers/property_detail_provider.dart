@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
-import 'package:skybnb/domain/models/reservation_entity.dart';
-import 'package:skybnb/domain/models/property_entity.dart';
-import 'package:skybnb/domain/usecases/reservation_usecases.dart';
-import 'package:skybnb/domain/usecases/get_movements_by_reservation_usecase.dart';
-import 'package:skybnb/core/utils/reservation_net_calculator.dart';
 import 'package:skybnb/core/constants/app_constants.dart';
 import 'package:skybnb/core/errors/exception_mapper.dart';
+import 'package:skybnb/core/utils/reservation_net_calculator.dart';
+import 'package:skybnb/domain/models/property_entity.dart';
+import 'package:skybnb/domain/models/reservation_entity.dart';
+import 'package:skybnb/domain/usecases/get_movements_by_reservation_usecase.dart';
+import 'package:skybnb/domain/usecases/reservation_usecases.dart';
 
 class PropertyDetailProvider extends ChangeNotifier {
   final GetAllReservationsUseCase getAllReservationsUseCase;
@@ -37,7 +37,7 @@ class PropertyDetailProvider extends ChangeNotifier {
   double getReservationNet(String reservationId) => _reservationNets[reservationId] ?? 0.0;
 
   double get totalIncome {
-    return _reservationNets.values.fold(0.0, (sum, net) => sum + net);
+    return _reservationNets.values.fold(0, (sum, net) => sum + net);
   }
 
   int get totalReservations => _reservations.length;

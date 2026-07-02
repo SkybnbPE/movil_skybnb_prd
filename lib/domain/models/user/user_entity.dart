@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
+
 /// Entidad de dominio: Usuario (propietario autenticado).
 /// Alineado al schema MongoDB: Users Collection.
 /// No incluye password_hash (nunca expuesto al cliente).
 /// No incluye timestamps de auditoría (sin valor de negocio en la UI).
+@immutable
 class UserEntity {
   final String id;           // _id
   final String username;
@@ -19,8 +22,8 @@ class UserEntity {
     required this.dni,
     required this.phone,
     required this.email,
-    this.profilePictureUrl,
     required this.status,
+    this.profilePictureUrl,
   });
 
   bool get isActive => status == 'active';

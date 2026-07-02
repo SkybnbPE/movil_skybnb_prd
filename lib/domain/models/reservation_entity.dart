@@ -1,10 +1,12 @@
-import 'package:skybnb/domain/models/value_objects/stay.dart';
+import 'package:flutter/foundation.dart';
 import 'package:skybnb/domain/models/value_objects/guest_info.dart';
-import 'package:skybnb/domain/models/value_objects/pricing.dart';
 import 'package:skybnb/domain/models/value_objects/payment_info.dart';
+import 'package:skybnb/domain/models/value_objects/pricing.dart';
+import 'package:skybnb/domain/models/value_objects/stay.dart';
 
 /// Entidad de dominio: Reserva.
 /// Alineado al schema MongoDB: Reservations Collection.
+@immutable
 class ReservationEntity {
   final String id;           // _id
   final String propertyId;

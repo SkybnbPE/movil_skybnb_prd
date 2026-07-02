@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
+
 /// Capacidad de una propiedad (dormitorios, baños, máximo de huéspedes).
+@immutable
 class Capacity {
   final int bedrooms;
   final int bathrooms;

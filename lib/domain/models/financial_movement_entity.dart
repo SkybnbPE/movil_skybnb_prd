@@ -1,6 +1,9 @@
+import 'package:flutter/foundation.dart';
+
 /// Entidad de dominio: Movimiento financiero.
 /// Alineado al schema MongoDB: FinancialMovements Collection.
 /// `date` y `periodMonth` tienen valor de negocio directo para liquidaciones mensuales.
+@immutable
 class FinancialMovementEntity {
   final String id;           // _id
   final String propertyId;
@@ -16,7 +19,6 @@ class FinancialMovementEntity {
   const FinancialMovementEntity({
     required this.id,
     required this.propertyId,
-    this.reservationId,
     required this.movementType,
     required this.category,
     required this.amount,
@@ -24,6 +26,7 @@ class FinancialMovementEntity {
     required this.description,
     required this.date,
     required this.periodMonth,
+    this.reservationId,
   });
 
   bool get isRevenue => movementType == 'reservation_revenue';

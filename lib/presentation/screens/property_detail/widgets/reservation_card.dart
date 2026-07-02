@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:skybnb/application/providers/property_detail_provider.dart';
 import 'package:skybnb/core/constants/app_colors.dart';
 import 'package:skybnb/core/constants/app_strings.dart';
-import 'package:skybnb/core/utils/date_formatter.dart';
 import 'package:skybnb/core/utils/currency_formatter.dart';
+import 'package:skybnb/core/utils/date_formatter.dart';
 import 'package:skybnb/domain/models/reservation_entity.dart';
-import 'package:skybnb/application/providers/property_detail_provider.dart';
+import 'package:skybnb/presentation/screens/property_detail/widgets/reservation_financial_bottom_sheet.dart';
 import 'package:skybnb/presentation/shared/section_card.dart';
 import 'package:skybnb/presentation/shared/status_badge.dart';
-import 'package:skybnb/presentation/screens/property_detail/widgets/reservation_financial_bottom_sheet.dart';
 
 class ReservationPaginatedListSection extends StatelessWidget {
   final List<ReservationEntity> reservations;
@@ -68,7 +68,7 @@ class ReservationItemCard extends StatelessWidget {
   });
 
   void _showFinancialSummary(BuildContext context) {
-    showModalBottomSheet(
+    showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,

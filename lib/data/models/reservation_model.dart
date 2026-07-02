@@ -1,8 +1,8 @@
 import 'package:skybnb/domain/models/reservation_entity.dart';
-import 'package:skybnb/domain/models/value_objects/stay.dart';
 import 'package:skybnb/domain/models/value_objects/guest_info.dart';
-import 'package:skybnb/domain/models/value_objects/pricing.dart';
 import 'package:skybnb/domain/models/value_objects/payment_info.dart';
+import 'package:skybnb/domain/models/value_objects/pricing.dart';
+import 'package:skybnb/domain/models/value_objects/stay.dart';
 
 /// DTO alineado al schema MongoDB: Reservations Collection.
 class ReservationModel {
@@ -66,7 +66,7 @@ class ReservationModel {
     final pricingNights = (pJson['nights'] as num? ?? 0).toInt();
     final stayNights = (sJson['nights'] as num? ?? 0).toInt();
     
-    int resolvedNights = pricingNights > 0 ? pricingNights : stayNights;
+    final resolvedNights = pricingNights > 0 ? pricingNights : stayNights;
     
     if (resolvedNights <= 0) {
       final checkIn = DateTime.parse(sJson['checkIn'] as String? ?? sJson['check_in'] as String? ?? DateTime.now().toIso8601String());

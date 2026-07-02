@@ -16,7 +16,7 @@ Future<void> main() async {
   };
 
   await dotenv.load();
-  await initializeDateFormatting('es', null);
+  await initializeDateFormatting('es');
   await ServiceLocator.loadSavedToken();
 
   // Captura errores no atrapados en la zona global

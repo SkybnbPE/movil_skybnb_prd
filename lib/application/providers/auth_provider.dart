@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:skybnb/core/errors/exception_mapper.dart';
 import 'package:skybnb/domain/models/user/user_entity.dart';
 import 'package:skybnb/domain/repositories/auth_repository.dart';
 import 'package:skybnb/domain/usecases/auth_usecases.dart';
-import 'package:skybnb/core/errors/exception_mapper.dart';
 
 class AuthProvider extends ChangeNotifier {
   final LoginUseCase loginUseCase;

@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
+
 /// Información de un huésped dentro de una reserva.
+@immutable
 class GuestInfo {
   final String guestId;
   final String name;
@@ -8,8 +11,8 @@ class GuestInfo {
   const GuestInfo({
     required this.guestId,
     required this.name,
-    this.profilePictureUrl,
     required this.isPrimary,
+    this.profilePictureUrl,
   });
 
   /// Iniciales para mostrar cuando no hay foto de perfil.

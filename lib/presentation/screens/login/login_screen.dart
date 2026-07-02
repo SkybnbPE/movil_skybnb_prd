@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:skybnb/application/providers/auth_provider.dart';
 import 'package:skybnb/core/constants/app_colors.dart';
 import 'package:skybnb/core/constants/app_strings.dart';
-import 'package:skybnb/presentation/screens/main_navigation.dart';
-import 'package:skybnb/presentation/screens/login/widgets/login_logo.dart';
-import 'package:skybnb/presentation/screens/login/widgets/login_input_field.dart';
 import 'package:skybnb/presentation/screens/login/widgets/login_button.dart';
+import 'package:skybnb/presentation/screens/login/widgets/login_input_field.dart';
+import 'package:skybnb/presentation/screens/login/widgets/login_logo.dart';
+import 'package:skybnb/presentation/screens/main_navigation.dart';
 
 /// StatefulWidget: maneja controllers de texto, visibilidad de contraseña
 /// y estado de carga del formulario.
@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (success) {
       await Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
+        MaterialPageRoute<void>(
           builder: (_) => MainNavigation(userId: auth.currentUser!.id),
         ),
       );

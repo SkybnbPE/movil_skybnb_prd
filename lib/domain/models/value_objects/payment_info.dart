@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 /// Transacción de pago individual.
 class PaymentTransaction {
   final String transactionId;
@@ -18,6 +20,7 @@ class PaymentTransaction {
 }
 
 /// Información completa de pago de una reserva.
+@immutable
 class PaymentInfo {
   final String paymentId;
   final String invoiceNumber;

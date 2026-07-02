@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
+
 /// Rango de estancia: check-in, check-out y duración en noches.
+@immutable
 class Stay {
   final DateTime checkIn;
   final DateTime checkOut;

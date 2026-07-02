@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
+
 /// Ubicación geográfica de una propiedad.
+@immutable
 class Location {
   final String address;
   final String district;

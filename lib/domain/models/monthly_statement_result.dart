@@ -1,6 +1,6 @@
-import 'package:skybnb/domain/models/reservation_entity.dart';
-import 'package:skybnb/domain/models/financial_movement_entity.dart';
 import 'package:skybnb/core/constants/app_constants.dart';
+import 'package:skybnb/domain/models/financial_movement_entity.dart';
+import 'package:skybnb/domain/models/reservation_entity.dart';
 
 /// Resultado de negocio calculado: liquidación mensual de una propiedad.
 /// No es una colección MongoDB — es un agregado calculado por el use case.
@@ -58,14 +58,14 @@ class MonthlyStatementResult {
     required List<FinancialMovementEntity> expenses,
   }) {
     final totalGross = reservations.fold(
-      0.0,
+      0,
       (sum, r) => sum + r.pricing.grossAmount,
     );
     final platformFee3Pct = totalGross * AppConstants.platformFeeRate;
     final baseAfterPlatform = totalGross - platformFee3Pct;
 
     final totalExpenses = expenses.fold(
-      0.0,
+      0,
       (sum, e) => sum + e.amount,
     );
     final baseAfterExpenses = baseAfterPlatform - totalExpenses;
