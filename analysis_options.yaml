@@ -18,6 +18,7 @@ analyzer:
     omit_local_variable_types: ignore
     avoid_redundant_argument_values: ignore
     sort_pub_dependencies: ignore
+    asset_does_not_exist: ignore
   exclude:
     - "lib/**/*.g.dart"
     - "lib/**/*.freezed.dart"

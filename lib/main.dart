@@ -15,7 +15,11 @@ Future<void> main() async {
     debugPrint('[FlutterError] ${details.exceptionAsString()}');
   };
 
-  await dotenv.load();
+  try {
+    await dotenv.load();
+  } catch (e) {
+    debugPrint('[WARN] .env not loaded: $e');
+  }
   await initializeDateFormatting('es');
   await ServiceLocator.loadSavedToken();
 
