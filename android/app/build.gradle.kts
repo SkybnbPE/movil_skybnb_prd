@@ -18,7 +18,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.skybnb_app"
+    namespace = "app.skybnb_app"
     compileSdk = 36
 
     compileOptions {
@@ -31,11 +31,11 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.skybnb.propietarios"
+        applicationId = "app.skybnb_app"
         minSdk = flutter.minSdkVersion
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 5
+        versionName = "1.0.5"
     }
 
     // Configuración de firma

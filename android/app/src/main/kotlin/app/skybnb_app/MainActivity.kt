@@ -1,4 +1,4 @@
-package com.example.skybnb_app
+package app.skybnb_app
 
 import io.flutter.embedding.android.FlutterActivity
 
