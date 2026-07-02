@@ -1,6 +1,6 @@
-import 'value_objects/location.dart';
-import 'value_objects/capacity.dart';
-import 'value_objects/pricing.dart';
+import 'package:skybnb/domain/models/value_objects/location.dart';
+import 'package:skybnb/domain/models/value_objects/capacity.dart';
+import 'package:skybnb/domain/models/value_objects/pricing.dart';
 
 /// Entidad de dominio: Propiedad.
 /// Alineado al schema MongoDB: Properties Collection.

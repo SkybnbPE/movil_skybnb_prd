@@ -1,7 +1,7 @@
-import 'value_objects/stay.dart';
-import 'value_objects/guest_info.dart';
-import 'value_objects/pricing.dart';
-import 'value_objects/payment_info.dart';
+import 'package:skybnb/domain/models/value_objects/stay.dart';
+import 'package:skybnb/domain/models/value_objects/guest_info.dart';
+import 'package:skybnb/domain/models/value_objects/pricing.dart';
+import 'package:skybnb/domain/models/value_objects/payment_info.dart';
 
 /// Entidad de dominio: Reserva.
 /// Alineado al schema MongoDB: Reservations Collection.

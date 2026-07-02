@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/utils/currency_formatter.dart';
-import '../../../shared/section_card.dart';
+import 'package:skybnb/core/constants/app_colors.dart';
+import 'package:skybnb/core/constants/app_strings.dart';
+import 'package:skybnb/core/utils/currency_formatter.dart';
+import 'package:skybnb/presentation/shared/section_card.dart';
 
 class PropertySummarySection extends StatelessWidget {
   final double totalIncome;

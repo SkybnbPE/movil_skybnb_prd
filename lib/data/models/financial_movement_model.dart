@@ -1,4 +1,4 @@
-import '../../domain/models/financial_movement_entity.dart';
+import 'package:skybnb/domain/models/financial_movement_entity.dart';
 
 /// DTO alineado al schema MongoDB: FinancialMovements Collection.
 class FinancialMovementModel {

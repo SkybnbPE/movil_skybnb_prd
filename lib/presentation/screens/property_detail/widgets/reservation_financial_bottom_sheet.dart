@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/utils/currency_formatter.dart';
-import '../../../../domain/models/reservation_entity.dart';
-import '../../../../application/providers/reservation_financial_provider.dart';
-import '../../../../core/service_locator.dart';
+import 'package:skybnb/core/constants/app_colors.dart';
+import 'package:skybnb/core/constants/app_strings.dart';
+import 'package:skybnb/core/utils/currency_formatter.dart';
+import 'package:skybnb/domain/models/reservation_entity.dart';
+import 'package:skybnb/application/providers/reservation_financial_provider.dart';
+import 'package:skybnb/core/service_locator.dart';
 
 class ReservationFinancialBottomSheet extends StatefulWidget {
   final ReservationEntity reservation;

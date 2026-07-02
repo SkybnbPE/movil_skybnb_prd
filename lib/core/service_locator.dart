@@ -1,20 +1,20 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import '../data/datasources/remote/api_remote_datasource.dart';
-import '../data/repositories/auth_repository_impl.dart';
-import '../data/repositories/property_repository_impl.dart';
-import '../data/repositories/reservation_repository_impl.dart';
-import '../data/repositories/financial_movement_repository_impl.dart';
-import '../domain/usecases/auth_usecases.dart';
-import '../domain/usecases/property_usecases.dart';
-import '../domain/usecases/reservation_usecases.dart';
-import '../domain/usecases/get_monthly_statement_usecase.dart';
-import '../domain/usecases/get_movements_by_reservation_usecase.dart';
-import '../application/providers/auth_provider.dart';
-import '../application/providers/property_provider.dart';
-import '../application/providers/calendar_provider.dart';
-import '../application/providers/property_detail_provider.dart';
-import '../application/providers/reservation_financial_provider.dart';
+import 'package:skybnb/data/datasources/remote/api_remote_datasource.dart';
+import 'package:skybnb/data/repositories/auth_repository_impl.dart';
+import 'package:skybnb/data/repositories/property_repository_impl.dart';
+import 'package:skybnb/data/repositories/reservation_repository_impl.dart';
+import 'package:skybnb/data/repositories/financial_movement_repository_impl.dart';
+import 'package:skybnb/domain/usecases/auth_usecases.dart';
+import 'package:skybnb/domain/usecases/property_usecases.dart';
+import 'package:skybnb/domain/usecases/reservation_usecases.dart';
+import 'package:skybnb/domain/usecases/get_monthly_statement_usecase.dart';
+import 'package:skybnb/domain/usecases/get_movements_by_reservation_usecase.dart';
+import 'package:skybnb/application/providers/auth_provider.dart';
+import 'package:skybnb/application/providers/property_provider.dart';
+import 'package:skybnb/application/providers/calendar_provider.dart';
+import 'package:skybnb/application/providers/property_detail_provider.dart';
+import 'package:skybnb/application/providers/reservation_financial_provider.dart';
 
 /// Composición de dependencias de la aplicación.
 /// Registra datasources → repositorios → use cases → providers.

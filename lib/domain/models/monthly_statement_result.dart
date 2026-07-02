@@ -1,6 +1,6 @@
-import 'reservation_entity.dart';
-import 'financial_movement_entity.dart';
-import '../../core/constants/app_constants.dart';
+import 'package:skybnb/domain/models/reservation_entity.dart';
+import 'package:skybnb/domain/models/financial_movement_entity.dart';
+import 'package:skybnb/core/constants/app_constants.dart';
 
 /// Resultado de negocio calculado: liquidación mensual de una propiedad.
 /// No es una colección MongoDB — es un agregado calculado por el use case.

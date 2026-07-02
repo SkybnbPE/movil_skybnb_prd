@@ -1,7 +1,7 @@
-import '../../domain/models/property_entity.dart';
-import '../../domain/models/value_objects/location.dart';
-import '../../domain/models/value_objects/capacity.dart';
-import '../../domain/models/value_objects/pricing.dart';
+import 'package:skybnb/domain/models/property_entity.dart';
+import 'package:skybnb/domain/models/value_objects/location.dart';
+import 'package:skybnb/domain/models/value_objects/capacity.dart';
+import 'package:skybnb/domain/models/value_objects/pricing.dart';
 
 /// DTO alineado al schema MongoDB: Properties Collection.
 class PropertyModel {

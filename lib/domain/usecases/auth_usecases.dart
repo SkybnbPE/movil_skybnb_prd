@@ -1,5 +1,5 @@
-import '../models/user/user_entity.dart';
-import '../repositories/auth_repository.dart';
+import 'package:skybnb/domain/models/user/user_entity.dart';
+import 'package:skybnb/domain/repositories/auth_repository.dart';
 
 class LoginUseCase {
   final AuthRepository _repository;

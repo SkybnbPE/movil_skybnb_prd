@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core/constants/app_colors.dart';
+import 'package:skybnb/core/constants/app_colors.dart';
 
 /// Tarjeta contenedora estándar con fondo blanco, borde y bordes redondeados.
 class SectionCard extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
+import 'package:skybnb/core/constants/app_colors.dart';
 
 /// Botón de login.
 /// Stateless: estado de carga y callback vienen del padre.

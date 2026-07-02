@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../../../application/providers/auth_provider.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_strings.dart';
-import '../../../domain/models/user/user_entity.dart';
-import '../../shared/section_card.dart';
+import 'package:skybnb/application/providers/auth_provider.dart';
+import 'package:skybnb/core/constants/app_colors.dart';
+import 'package:skybnb/core/constants/app_strings.dart';
+import 'package:skybnb/domain/models/user/user_entity.dart';
+import 'package:skybnb/presentation/shared/section_card.dart';
 
 /// StatefulWidget: dispara carga del perfil al montar via initState.
 /// El estado del usuario lo gestiona AuthProvider.

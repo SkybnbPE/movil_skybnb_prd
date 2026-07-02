@@ -1,4 +1,4 @@
-import '../models/user/user_entity.dart';
+import 'package:skybnb/domain/models/user/user_entity.dart';
 
 /// Contrato de autenticación.
 /// Las implementaciones residen en data/repositories.

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../application/providers/auth_provider.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_strings.dart';
-import '../main_navigation.dart';
-import 'widgets/login_logo.dart';
-import 'widgets/login_input_field.dart';
-import 'widgets/login_button.dart';
+import 'package:skybnb/application/providers/auth_provider.dart';
+import 'package:skybnb/core/constants/app_colors.dart';
+import 'package:skybnb/core/constants/app_strings.dart';
+import 'package:skybnb/presentation/screens/main_navigation.dart';
+import 'package:skybnb/presentation/screens/login/widgets/login_logo.dart';
+import 'package:skybnb/presentation/screens/login/widgets/login_input_field.dart';
+import 'package:skybnb/presentation/screens/login/widgets/login_button.dart';
 
 /// StatefulWidget: maneja controllers de texto, visibilidad de contraseña
 /// y estado de carga del formulario.
@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (!mounted) return;
     if (success) {
-      Navigator.pushReplacement(
+      await Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (_) => MainNavigation(userId: auth.currentUser!.id),

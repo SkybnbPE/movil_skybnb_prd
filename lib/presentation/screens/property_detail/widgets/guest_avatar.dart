@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../domain/models/reservation_entity.dart';
+import 'package:skybnb/core/constants/app_colors.dart';
+import 'package:skybnb/domain/models/reservation_entity.dart';
 
 class GuestAvatar extends StatelessWidget {
   final ReservationEntity reservation;
@@ -28,10 +28,10 @@ class GuestAvatar extends StatelessWidget {
             ? CachedNetworkImage(
                 imageUrl: picUrl,
                 fit: BoxFit.cover,
-                placeholder: (_, __) => _Initials(initials, size),
-                errorWidget: (_, __, ___) => _Initials(initials, size),
+                placeholder: (_, __) => Initials(initials, size),
+                errorWidget: (_, __, ___) => Initials(initials, size),
               )
-            : _Initials(initials, size),
+            : Initials(initials, size),
       ),
     );
   }
@@ -60,9 +60,9 @@ class GuestMiniAvatar extends StatelessWidget {
             ? CachedNetworkImage(
                 imageUrl: picUrl,
                 fit: BoxFit.cover,
-                errorWidget: (_, __, ___) => _Initials(initials, 20, fontSize: 8),
+                errorWidget: (_, __, ___) => Initials(initials, 20, fontSize: 8),
               )
-            : _Initials(initials, 20, fontSize: 8),
+            : Initials(initials, 20, fontSize: 8),
       ),
     );
   }

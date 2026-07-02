@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../application/providers/property_provider.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_strings.dart';
-import '../../../domain/models/property_entity.dart';
-import '../../../core/service_locator.dart';
-import '../property_detail/property_detail_screen.dart';
-import 'widgets/properties_widgets.dart';
+import 'package:skybnb/application/providers/property_provider.dart';
+import 'package:skybnb/core/constants/app_colors.dart';
+import 'package:skybnb/core/constants/app_strings.dart';
+import 'package:skybnb/domain/models/property_entity.dart';
+import 'package:skybnb/core/service_locator.dart';
+import 'package:skybnb/presentation/screens/property_detail/property_detail_screen.dart';
+import 'package:skybnb/presentation/screens/properties/widgets/properties_widgets.dart';
 
 /// StatefulWidget: dispara la carga de datos al entrar y observa el Provider.
 class PropertiesScreen extends StatefulWidget {

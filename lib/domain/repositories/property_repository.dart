@@ -1,4 +1,4 @@
-import '../models/property_entity.dart';
+import 'package:skybnb/domain/models/property_entity.dart';
 
 /// Contrato de acceso a propiedades.
 abstract class PropertyRepository {

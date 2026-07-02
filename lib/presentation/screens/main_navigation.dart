@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_strings.dart';
-import 'profile/profile_screen.dart';
-import 'properties/properties_screen.dart';
-import 'calendar/calendar_screen.dart';
+import 'package:skybnb/core/constants/app_colors.dart';
+import 'package:skybnb/core/constants/app_strings.dart';
+import 'package:skybnb/presentation/screens/profile/profile_screen.dart';
+import 'package:skybnb/presentation/screens/properties/properties_screen.dart';
+import 'package:skybnb/presentation/screens/calendar/calendar_screen.dart';
 
 /// StatefulWidget: gestiona el índice de la tab activa.
 /// Sus hijos (ProfileScreen, PropertiesScreen, CalendarScreen) manejan

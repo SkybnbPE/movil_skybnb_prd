@@ -1,8 +1,6 @@
-import '../models/monthly_statement_result.dart';
-import '../models/reservation_entity.dart';
-import '../models/financial_movement_entity.dart';
-import '../repositories/reservation_repository.dart';
-import '../repositories/financial_movement_repository.dart';
+import 'package:skybnb/domain/models/monthly_statement_result.dart';
+import 'package:skybnb/domain/repositories/reservation_repository.dart';
+import 'package:skybnb/domain/repositories/financial_movement_repository.dart';
 
 /// Calcula la liquidación mensual completa para una propiedad y periodo.
 /// Combina reservas y movimientos financieros de tipo "expense".

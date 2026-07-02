@@ -1,5 +1,5 @@
-import '../models/property_entity.dart';
-import '../repositories/property_repository.dart';
+import 'package:skybnb/domain/models/property_entity.dart';
+import 'package:skybnb/domain/repositories/property_repository.dart';
 
 class GetPropertiesUseCase {
   final PropertyRepository _repository;

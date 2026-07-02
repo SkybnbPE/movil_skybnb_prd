@@ -1,4 +1,4 @@
-import '../models/reservation_entity.dart';
+import 'package:skybnb/domain/models/reservation_entity.dart';
 
 /// Contrato de acceso a reservas.
 abstract class ReservationRepository {

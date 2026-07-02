@@ -1,5 +1,5 @@
-import '../models/reservation_entity.dart';
-import '../repositories/reservation_repository.dart';
+import 'package:skybnb/domain/models/reservation_entity.dart';
+import 'package:skybnb/domain/repositories/reservation_repository.dart';
 
 class GetReservationsByPeriodUseCase {
   final ReservationRepository _repository;

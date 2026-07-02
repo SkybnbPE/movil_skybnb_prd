@@ -1,8 +1,8 @@
-import '../../domain/models/reservation_entity.dart';
-import '../../domain/models/value_objects/stay.dart';
-import '../../domain/models/value_objects/guest_info.dart';
-import '../../domain/models/value_objects/pricing.dart';
-import '../../domain/models/value_objects/payment_info.dart';
+import 'package:skybnb/domain/models/reservation_entity.dart';
+import 'package:skybnb/domain/models/value_objects/stay.dart';
+import 'package:skybnb/domain/models/value_objects/guest_info.dart';
+import 'package:skybnb/domain/models/value_objects/pricing.dart';
+import 'package:skybnb/domain/models/value_objects/payment_info.dart';
 
 /// DTO alineado al schema MongoDB: Reservations Collection.
 class ReservationModel {

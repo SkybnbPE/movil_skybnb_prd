@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../domain/models/property_entity.dart';
+import 'package:skybnb/core/constants/app_colors.dart';
+import 'package:skybnb/domain/models/property_entity.dart';
 
 /// Tarjeta de propiedad en la lista principal.
 /// Stateless: recibe entidad como parámetro.

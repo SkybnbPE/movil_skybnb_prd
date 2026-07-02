@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
-import '../../domain/models/reservation_entity.dart';
-import '../../domain/models/property_entity.dart';
-import '../../domain/usecases/reservation_usecases.dart';
-import '../../domain/usecases/get_movements_by_reservation_usecase.dart';
-import '../../core/utils/reservation_net_calculator.dart';
-import '../../core/constants/app_constants.dart';
-import '../../core/errors/exception_mapper.dart';
+import 'package:skybnb/domain/models/reservation_entity.dart';
+import 'package:skybnb/domain/models/property_entity.dart';
+import 'package:skybnb/domain/usecases/reservation_usecases.dart';
+import 'package:skybnb/domain/usecases/get_movements_by_reservation_usecase.dart';
+import 'package:skybnb/core/utils/reservation_net_calculator.dart';
+import 'package:skybnb/core/constants/app_constants.dart';
+import 'package:skybnb/core/errors/exception_mapper.dart';
 
 class PropertyDetailProvider extends ChangeNotifier {
   final GetAllReservationsUseCase getAllReservationsUseCase;

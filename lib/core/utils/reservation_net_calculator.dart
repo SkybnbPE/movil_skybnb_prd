@@ -1,4 +1,4 @@
-import '../../domain/models/financial_movement_entity.dart';
+import 'package:skybnb/domain/models/financial_movement_entity.dart';
 
 /// Calcula el neto (ingreso - gastos) de una reserva a partir de sus movimientos financieros.
 class ReservationNetCalculator {

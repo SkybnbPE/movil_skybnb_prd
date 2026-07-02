@@ -1,5 +1,5 @@
-import '../errors/failures.dart';
-import '../../data/datasources/remote/api_remote_datasource.dart';
+import 'package:skybnb/core/errors/failures.dart';
+import 'package:skybnb/data/datasources/remote/api_remote_datasource.dart';
 
 /// Convierte excepciones de la capa data a Failures del dominio.
 class ExceptionMapper {

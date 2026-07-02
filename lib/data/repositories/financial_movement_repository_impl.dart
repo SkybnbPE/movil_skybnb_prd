@@ -1,6 +1,6 @@
-import '../../domain/models/financial_movement_entity.dart';
-import '../../domain/repositories/financial_movement_repository.dart';
-import '../datasources/remote/api_remote_datasource.dart';
+import 'package:skybnb/domain/models/financial_movement_entity.dart';
+import 'package:skybnb/domain/repositories/financial_movement_repository.dart';
+import 'package:skybnb/data/datasources/remote/api_remote_datasource.dart';
 
 class FinancialMovementRepositoryImpl implements FinancialMovementRepository {
   final ApiRemoteDataSource _remote;

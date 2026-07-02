@@ -1,4 +1,4 @@
-import '../models/financial_movement_entity.dart';
+import 'package:skybnb/domain/models/financial_movement_entity.dart';
 
 /// Contrato de acceso a movimientos financieros.
 abstract class FinancialMovementRepository {

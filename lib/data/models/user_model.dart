@@ -1,4 +1,4 @@
-import '../../domain/models/user/user_entity.dart';
+import 'package:skybnb/domain/models/user/user_entity.dart';
 
 /// DTO alineado al schema MongoDB: Users Collection.
 /// Maneja la serialización/deserialización JSON del API.

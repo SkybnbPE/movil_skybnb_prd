@@ -1,6 +1,6 @@
-import '../../domain/models/reservation_entity.dart';
-import '../../domain/repositories/reservation_repository.dart';
-import '../datasources/remote/api_remote_datasource.dart';
+import 'package:skybnb/domain/models/reservation_entity.dart';
+import 'package:skybnb/domain/repositories/reservation_repository.dart';
+import 'package:skybnb/data/datasources/remote/api_remote_datasource.dart';
 
 class ReservationRepositoryImpl implements ReservationRepository {
   final ApiRemoteDataSource _remote;

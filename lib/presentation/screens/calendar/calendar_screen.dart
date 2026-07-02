@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
-import '../../../application/providers/calendar_provider.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_constants.dart';
-import '../../../core/constants/app_strings.dart';
-import '../../../domain/models/property_entity.dart';
-import '../property_detail/widgets/guest_avatar.dart';
+import 'package:skybnb/application/providers/calendar_provider.dart';
+import 'package:skybnb/core/constants/app_colors.dart';
+import 'package:skybnb/core/constants/app_constants.dart';
+import 'package:skybnb/core/constants/app_strings.dart';
+import 'package:skybnb/domain/models/property_entity.dart';
+import 'package:skybnb/presentation/screens/property_detail/widgets/guest_avatar.dart';
+import 'package:skybnb/presentation/screens/property_detail/widgets/reservation_card.dart';
 
 /// StatefulWidget: gestiona el estado local del calendario (focusedDay, selectedDay).
 /// El estado de datos (reservas, propiedades) lo gestiona CalendarProvider.

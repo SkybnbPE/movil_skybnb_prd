@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import '../constants/app_strings.dart';
+import 'package:skybnb/core/constants/app_strings.dart';
 
 class DateFormatter {
   DateFormatter._();
