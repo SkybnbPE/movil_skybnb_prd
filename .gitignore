@@ -40,3 +40,5 @@ app.*.map.json
 
 # Secrets (solo específicos)
 assets/credentials.json
+.env
+.env.*

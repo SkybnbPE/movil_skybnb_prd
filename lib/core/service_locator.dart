@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import '../data/datasources/remote/api_remote_datasource.dart';
 import '../data/repositories/auth_repository_impl.dart';
@@ -13,15 +14,14 @@ import '../application/providers/auth_provider.dart';
 import '../application/providers/property_provider.dart';
 import '../application/providers/calendar_provider.dart';
 import '../application/providers/property_detail_provider.dart';
+import '../application/providers/reservation_financial_provider.dart';
 
 /// Composición de dependencias de la aplicación.
 /// Registra datasources → repositorios → use cases → providers.
-///
-/// TODO: Reemplaza la URL base con la de tu API REST MongoDB.
 class ServiceLocator {
   ServiceLocator._();
 
-  static const String _baseUrl = 'https://nlqsrvbc57itlsyim6jhccid440qpbwj.lambda-url.sa-east-1.on.aws';
+  static final String _baseUrl = dotenv.env['API_BASE_URL'] ?? '';
 
   // ─── Shared HTTP client ───────────────────────────────────────────────────
   static final http.Client _httpClient = http.Client();
@@ -60,6 +60,7 @@ class ServiceLocator {
   static AuthProvider createAuthProvider() => AuthProvider(
         loginUseCase: loginUseCase,
         getUserProfileUseCase: getUserProfileUseCase,
+        authRepository: _authRepo,
       );
 
   static PropertyProvider createPropertyProvider() => PropertyProvider(
@@ -76,4 +77,11 @@ class ServiceLocator {
         getAllReservationsUseCase: getAllReservationsUseCase,
         getMovementsByReservationUseCase: getMovementsByReservationUseCase,
       );
+
+  static ReservationFinancialProvider createReservationFinancialProvider() => ReservationFinancialProvider(
+        getMovementsByReservationUseCase: getMovementsByReservationUseCase,
+      );
+
+  /// Carga el token guardado en secure storage al iniciar la app.
+  static Future<void> loadSavedToken() => _remoteDataSource.loadSavedToken();
 }

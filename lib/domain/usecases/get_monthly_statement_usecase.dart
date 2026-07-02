@@ -19,13 +19,11 @@ class GetMonthlyStatementUseCase {
     String propertyId,
     String periodMonth,
   ) async {
-    final results = await Future.wait([
-      _reservationRepository.getReservationsByPeriod(propertyId, periodMonth),
-      _movementRepository.getMovementsByPeriod(propertyId, periodMonth),
-    ]);
+    final reservationsFuture = _reservationRepository.getReservationsByPeriod(propertyId, periodMonth);
+    final movementsFuture = _movementRepository.getMovementsByPeriod(propertyId, periodMonth);
 
-    final reservations = results[0] as List<ReservationEntity>;
-    final allMovements = results[1] as List<FinancialMovementEntity>;
+    final reservations = await reservationsFuture;
+    final allMovements = await movementsFuture;
 
     // Solo los movimientos de tipo expense alimentan el cálculo de gastos
     final expenses =

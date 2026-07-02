@@ -3,6 +3,9 @@ import '../../domain/models/reservation_entity.dart';
 import '../../domain/models/property_entity.dart';
 import '../../domain/usecases/reservation_usecases.dart';
 import '../../domain/usecases/get_movements_by_reservation_usecase.dart';
+import '../../core/utils/reservation_net_calculator.dart';
+import '../../core/constants/app_constants.dart';
+import '../../core/errors/exception_mapper.dart';
 
 class PropertyDetailProvider extends ChangeNotifier {
   final GetAllReservationsUseCase getAllReservationsUseCase;
@@ -20,7 +23,7 @@ class PropertyDetailProvider extends ChangeNotifier {
   String? _error;
 
   // Pagination state
-  int _visibleCount = 3;
+  int _visibleCount = AppConstants.initialPageSize;
 
   PropertyEntity? get property => _property;
   List<ReservationEntity> get reservations => _reservations;
@@ -43,7 +46,7 @@ class PropertyDetailProvider extends ChangeNotifier {
     _property = property;
     _isLoading = true;
     _error = null;
-    _visibleCount = 3;
+    _visibleCount = AppConstants.initialPageSize;
     _reservationNets.clear();
     notifyListeners();
 
@@ -59,8 +62,8 @@ class PropertyDetailProvider extends ChangeNotifier {
       // Lo hacemos en segundo plano para no bloquear
       _loadAllNets(res);
       
-    } catch (e) {
-      _error = e.toString();
+    } on Exception catch (e) {
+      _error = ExceptionMapper.mapToFailure(e).message;
     }
 
     _isLoading = false;
@@ -71,26 +74,17 @@ class PropertyDetailProvider extends ChangeNotifier {
     for (final r in reservations) {
       try {
         final movements = await getMovementsByReservationUseCase(r.id);
-        double income = 0;
-        double expenses = 0;
-        for (final m in movements) {
-          if (m.movementType == 'income') {
-            income += m.amount;
-          } else {
-            expenses += m.amount;
-          }
-        }
-        _reservationNets[r.id] = income - expenses;
-        notifyListeners(); // Notificar conforme se cargan los netos
-      } catch (e) {
-        debugPrint('Error cargando neto para ${r.id}: $e');
+        _reservationNets[r.id] = ReservationNetCalculator.calculate(movements);
+        notifyListeners();
+      } on Exception catch (e) {
+        debugPrint('Error cargando neto para ${r.id}: ${ExceptionMapper.mapToFailure(e).message}');
       }
     }
   }
 
   void loadMore() {
     if (canLoadMore) {
-      _visibleCount += 3;
+      _visibleCount += AppConstants.pageSizeIncrement;
       notifyListeners();
     }
   }

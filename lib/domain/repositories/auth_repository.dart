@@ -9,4 +9,7 @@ abstract class AuthRepository {
 
   /// Obtiene el perfil del usuario autenticado por su ID.
   Future<UserEntity?> getUserProfile(String userId);
+
+  /// Limpia el token de autenticación almacenado.
+  Future<void> clearToken();
 }

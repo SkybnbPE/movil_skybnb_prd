@@ -15,7 +15,7 @@ class AuthRepositoryImpl implements AuthRepository {
     // Si el backend retorna un token en la raíz, lo guardamos.
     final token = data['token'] as String?;
     if (token != null) {
-      _remote.setAuthToken(token);
+      await _remote.setAuthToken(token);
     }
     
     // El API podría retornar { token, user } o directamente el objeto del usuario
@@ -30,6 +30,11 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<UserEntity?> getUserProfile(String userId) async {
     final model = await _remote.getUserProfile(userId);
     return model.toEntity();
+  }
+
+  @override
+  Future<void> clearToken() async {
+    await _remote.clearAuthToken();
   }
 }
 

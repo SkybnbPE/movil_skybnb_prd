@@ -4,8 +4,10 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 import '../../../application/providers/calendar_provider.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/constants/app_constants.dart';
+import '../../../core/constants/app_strings.dart';
 import '../../../domain/models/property_entity.dart';
-import '../property_detail/widgets/detail_widgets.dart';
+import '../property_detail/widgets/guest_avatar.dart';
 
 /// StatefulWidget: gestiona el estado local del calendario (focusedDay, selectedDay).
 /// El estado de datos (reservas, propiedades) lo gestiona CalendarProvider.
@@ -36,7 +38,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Calendario',
+        title: const Text(AppStrings.calendar,
             style: TextStyle(color: AppColors.textPrimary)),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -45,7 +47,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       body: provider.isLoading
           ? const Center(child: CircularProgressIndicator())
           : provider.properties.isEmpty
-              ? const Center(child: Text('No tienes propiedades'))
+              ? const Center(child: Text(AppStrings.noProperties2))
               : Column(
                   children: [
                     if (provider.properties.length > 1)
@@ -83,8 +85,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   Widget _buildCalendar(CalendarProvider provider) {
     return TableCalendar(
-      firstDay: DateTime(2025, 1, 1),
-      lastDay: DateTime(2027, 12, 31),
+      firstDay: DateTime(AppConstants.calendarFirstYear, 1, 1),
+      lastDay: DateTime(AppConstants.calendarLastYear, 12, 31),
       focusedDay: _focusedDay,
       selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
       calendarFormat: CalendarFormat.month,

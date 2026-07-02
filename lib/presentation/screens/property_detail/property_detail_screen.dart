@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/constants/app_strings.dart';
 import '../../../domain/models/property_entity.dart';
 import '../../../application/providers/property_detail_provider.dart';
-import 'widgets/detail_widgets.dart';
+import 'widgets/property_header.dart';
+import 'widgets/property_summary_section.dart';
+import 'widgets/reservation_card.dart';
 
 class PropertyDetailScreen extends StatefulWidget {
   final PropertyEntity property;
@@ -36,7 +39,7 @@ class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: const IconThemeData(color: AppColors.textPrimary),
-        title: const Text('Detalle',
+        title: const Text(AppStrings.detail,
             style: TextStyle(color: AppColors.textPrimary)),
       ),
       body: provider.isLoading

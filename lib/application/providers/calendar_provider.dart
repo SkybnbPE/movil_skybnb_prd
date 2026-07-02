@@ -4,6 +4,8 @@ import '../../domain/models/reservation_entity.dart';
 import '../../domain/usecases/property_usecases.dart';
 import '../../domain/usecases/reservation_usecases.dart';
 import '../../domain/usecases/get_movements_by_reservation_usecase.dart';
+import '../../core/utils/reservation_net_calculator.dart';
+import '../../core/errors/exception_mapper.dart';
 
 class CalendarProvider extends ChangeNotifier {
   final GetPropertiesUseCase getPropertiesUseCase;
@@ -40,8 +42,8 @@ class CalendarProvider extends ChangeNotifier {
       final props = await getPropertiesUseCase(ownerId);
       _properties = props;
       _selectedProperty = props.isNotEmpty ? props.first : null;
-    } catch (e) {
-      _error = e.toString();
+    } on Exception catch (e) {
+      _error = ExceptionMapper.mapToFailure(e).message;
     }
 
     _isLoading = false;
@@ -60,8 +62,8 @@ class CalendarProvider extends ChangeNotifier {
       notifyListeners();
       
       _loadAllNets(res);
-    } catch (e) {
-      _error = e.toString();
+    } on Exception catch (e) {
+      _error = ExceptionMapper.mapToFailure(e).message;
       notifyListeners();
     }
   }
@@ -70,19 +72,10 @@ class CalendarProvider extends ChangeNotifier {
     for (final r in reservations) {
       try {
         final movements = await getMovementsByReservationUseCase(r.id);
-        double income = 0;
-        double expenses = 0;
-        for (final m in movements) {
-          if (m.movementType == 'income') {
-            income += m.amount;
-          } else {
-            expenses += m.amount;
-          }
-        }
-        _reservationNets[r.id] = income - expenses;
+        _reservationNets[r.id] = ReservationNetCalculator.calculate(movements);
         notifyListeners();
-      } catch (e) {
-        debugPrint('Error cargando neto para ${r.id}: $e');
+      } on Exception catch (e) {
+        debugPrint('Error cargando neto para ${r.id}: ${ExceptionMapper.mapToFailure(e).message}');
       }
     }
   }

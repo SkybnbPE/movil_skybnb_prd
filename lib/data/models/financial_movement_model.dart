@@ -33,10 +33,10 @@ class FinancialMovementModel {
       reservationId: json['reservationId'] as String? ?? json['reservation_id'] as String?,
       movementType: json['movementType'] as String? ?? json['movement_type'] as String? ?? 'expense',
       category: json['category'] as String? ?? '',
-      amount: (json['amount'] as num).toDouble(),
+      amount: (json['amount'] as num?)?.toDouble() ?? 0.0,
       currency: json['currency'] as String? ?? 'PEN',
       description: json['description'] as String? ?? '',
-      date: DateTime.parse(json['date'] as String),
+      date: DateTime.tryParse(json['date'] as String? ?? '') ?? DateTime.now(),
       periodMonth: json['periodMonth'] as String? ?? json['period_month'] as String? ?? '',
     );
   }

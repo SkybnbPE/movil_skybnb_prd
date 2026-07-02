@@ -1,5 +1,6 @@
 import 'reservation_entity.dart';
 import 'financial_movement_entity.dart';
+import '../../core/constants/app_constants.dart';
 
 /// Resultado de negocio calculado: liquidación mensual de una propiedad.
 /// No es una colección MongoDB — es un agregado calculado por el use case.
@@ -60,7 +61,7 @@ class MonthlyStatementResult {
       0.0,
       (sum, r) => sum + r.pricing.grossAmount,
     );
-    final platformFee3Pct = totalGross * 0.03;
+    final platformFee3Pct = totalGross * AppConstants.platformFeeRate;
     final baseAfterPlatform = totalGross - platformFee3Pct;
 
     final totalExpenses = expenses.fold(
@@ -68,8 +69,8 @@ class MonthlyStatementResult {
       (sum, e) => sum + e.amount,
     );
     final baseAfterExpenses = baseAfterPlatform - totalExpenses;
-    final skybnbFee15Pct = baseAfterExpenses * 0.15;
-    final igv18PctOnSkybnb = skybnbFee15Pct * 0.18;
+    final skybnbFee15Pct = baseAfterExpenses * AppConstants.skybnbFeeRate;
+    final igv18PctOnSkybnb = skybnbFee15Pct * AppConstants.igvRate;
     final netToOwner = baseAfterExpenses - skybnbFee15Pct - igv18PctOnSkybnb;
 
     return MonthlyStatementResult(

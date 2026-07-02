@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../models/user_model.dart';
 import '../../models/property_model.dart';
 import '../../models/reservation_model.dart';
@@ -11,18 +12,29 @@ class ApiRemoteDataSource {
   final http.Client _client;
   final String baseUrl;
   String? _authToken;
+  final FlutterSecureStorage _secureStorage;
+
+  static const _tokenKey = 'skybnb_auth_token';
 
   ApiRemoteDataSource({
     required this.baseUrl,
     http.Client? client,
-  }) : _client = client ?? http.Client();
+    FlutterSecureStorage? secureStorage,
+  })  : _client = client ?? http.Client(),
+        _secureStorage = secureStorage ?? const FlutterSecureStorage();
 
-  void setAuthToken(String token) {
+  Future<void> setAuthToken(String token) async {
     _authToken = token;
+    await _secureStorage.write(key: _tokenKey, value: token);
   }
 
-  void clearAuthToken() {
+  Future<void> clearAuthToken() async {
     _authToken = null;
+    await _secureStorage.delete(key: _tokenKey);
+  }
+
+  Future<void> loadSavedToken() async {
+    _authToken = await _secureStorage.read(key: _tokenKey);
   }
 
   Map<String, String> get _headers => {
@@ -89,7 +101,7 @@ class ApiRemoteDataSource {
       headers: _headers,
     );
     _checkResponse(response);
-    return List<String>.from(jsonDecode(response.body) as List);
+    return List<String>.from(jsonDecode(response.body) as List? ?? []);
   }
 
   // ─── RESERVATIONS ────────────────────────────────────────────────────────

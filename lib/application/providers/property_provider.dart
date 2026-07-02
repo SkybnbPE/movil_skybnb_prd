@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import '../../domain/models/property_entity.dart';
-import '../../domain/models/reservation_entity.dart';
 import '../../domain/usecases/property_usecases.dart';
-import '../../domain/usecases/reservation_usecases.dart';
+import '../../core/errors/exception_mapper.dart';
 
 class PropertyProvider extends ChangeNotifier {
   final GetPropertiesUseCase getPropertiesUseCase;
@@ -27,8 +26,8 @@ class PropertyProvider extends ChangeNotifier {
     try {
       final props = await getPropertiesUseCase(ownerId);
       _properties = props;
-    } catch (e) {
-      _error = e.toString();
+    } on Exception catch (e) {
+      _error = ExceptionMapper.mapToFailure(e).message;
     }
 
     _isLoading = false;

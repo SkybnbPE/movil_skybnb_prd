@@ -42,6 +42,22 @@ class AppStrings {
   static const String days = 'días';
   static const String generated = 'Total Generado';
 
+  // Property Summary
+  static const String historicalSummary = 'Resumen Histórico';
+  static const String totalIncome = 'Ingreso Total';
+  static const String totalReservations = 'Reservas Totales';
+  static const String viewMoreReservations = 'Ver más reservas';
+  static const String viewFinances = 'Ver finanzas';
+
+  // Financial Bottom Sheet
+  static const String noMovements = 'No hay movimientos registrados.';
+  static const String totalNet = 'Total Neto';
+  static const String rentLabel = 'Renta (Rent)';
+  static const String airbnbFeeLabel = 'Comisión Airbnb';
+  static const String cleaningLabel = 'Limpieza (Cleaning)';
+  static const String managementFeeLabel = 'Comisión Skybnb (Management)';
+  static const String igvLabel = 'IGV';
+
   // Calendar
   static const String calendar = 'Calendario';
   static const String noProperties2 = 'No tienes propiedades';
