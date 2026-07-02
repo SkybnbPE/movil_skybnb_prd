@@ -33,7 +33,7 @@ android {
     defaultConfig {
         applicationId = "app.skybnb_app"
         minSdk = flutter.minSdkVersion
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 5
         versionName = "1.0.5"
     }
