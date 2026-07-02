@@ -58,14 +58,14 @@ class MonthlyStatementResult {
     required List<FinancialMovementEntity> expenses,
   }) {
     final totalGross = reservations.fold(
-      0,
+      0.0,
       (sum, r) => sum + r.pricing.grossAmount,
     );
     final platformFee3Pct = totalGross * AppConstants.platformFeeRate;
     final baseAfterPlatform = totalGross - platformFee3Pct;
 
     final totalExpenses = expenses.fold(
-      0,
+      0.0,
       (sum, e) => sum + e.amount,
     );
     final baseAfterExpenses = baseAfterPlatform - totalExpenses;

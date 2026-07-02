@@ -37,4 +37,3 @@ class AuthRepositoryImpl implements AuthRepository {
     await _remote.clearAuthToken();
   }
 }
-

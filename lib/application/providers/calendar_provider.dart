@@ -61,7 +61,7 @@ class CalendarProvider extends ChangeNotifier {
       _reservationNets.clear();
       notifyListeners();
       
-      _loadAllNets(res);
+      await _loadAllNets(res);
     } on Exception catch (e) {
       _error = ExceptionMapper.mapToFailure(e).message;
       notifyListeners();

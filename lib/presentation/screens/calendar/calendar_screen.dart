@@ -225,8 +225,8 @@ class _DayCell extends StatelessWidget {
     final hasRes = reservation != null;
 
     final dayStart = DateTime(day.year, day.month, day.day);
-    final isFirst = false;
-    final isLast = false;
+    var isFirst = false;
+    var isLast = false;
     if (hasRes) {
       final checkIn = DateTime(reservation.stay.checkIn.year,
           reservation.stay.checkIn.month, reservation.stay.checkIn.day);

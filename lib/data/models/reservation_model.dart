@@ -66,7 +66,7 @@ class ReservationModel {
     final pricingNights = (pJson['nights'] as num? ?? 0).toInt();
     final stayNights = (sJson['nights'] as num? ?? 0).toInt();
     
-    final resolvedNights = pricingNights > 0 ? pricingNights : stayNights;
+    var resolvedNights = pricingNights > 0 ? pricingNights : stayNights;
     
     if (resolvedNights <= 0) {
       final checkIn = DateTime.parse(sJson['checkIn'] as String? ?? sJson['check_in'] as String? ?? DateTime.now().toIso8601String());

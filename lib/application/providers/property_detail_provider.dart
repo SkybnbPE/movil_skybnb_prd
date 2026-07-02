@@ -59,8 +59,7 @@ class PropertyDetailProvider extends ChangeNotifier {
       _reservations = res;
       
       // Cargar movimientos financieros para cada reserva para calcular el neto real
-      // Lo hacemos en segundo plano para no bloquear
-      _loadAllNets(res);
+      await _loadAllNets(res);
       
     } on Exception catch (e) {
       _error = ExceptionMapper.mapToFailure(e).message;
