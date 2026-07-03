@@ -15,6 +15,7 @@ class ApiRemoteDataSource {
   final FlutterSecureStorage _secureStorage;
 
   static const _tokenKey = 'skybnb_auth_token';
+  static const _userIdKey = 'skybnb_user_id';
 
   ApiRemoteDataSource({
     required this.baseUrl,
@@ -31,10 +32,24 @@ class ApiRemoteDataSource {
   Future<void> clearAuthToken() async {
     _authToken = null;
     await _secureStorage.delete(key: _tokenKey);
+    await _secureStorage.delete(key: _userIdKey);
   }
 
   Future<void> loadSavedToken() async {
     _authToken = await _secureStorage.read(key: _tokenKey);
+  }
+
+  Future<bool> hasSavedToken() async {
+    final token = await _secureStorage.read(key: _tokenKey);
+    return token != null && token.isNotEmpty;
+  }
+
+  Future<void> setSavedUserId(String userId) async {
+    await _secureStorage.write(key: _userIdKey, value: userId);
+  }
+
+  Future<String?> getSavedUserId() async {
+    return _secureStorage.read(key: _userIdKey);
   }
 
   Map<String, String> get _headers => {

@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:skybnb/core/service_locator.dart';
-import 'package:skybnb/presentation/screens/login/login_screen.dart';
+import 'package:skybnb/presentation/screens/splash/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +54,7 @@ class SkybnbApp extends StatelessWidget {
             seedColor: const Color(0xFFE91E63),
           ),
         ),
-        home: const LoginScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

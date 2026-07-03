@@ -36,4 +36,18 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> clearToken() async {
     await _remote.clearAuthToken();
   }
+
+  @override
+  Future<bool> hasSavedToken() => _remote.hasSavedToken();
+
+  @override
+  Future<String?> getSavedUserId() => _remote.getSavedUserId();
+
+  @override
+  Future<void> saveUserSession(String userId) => _remote.setSavedUserId(userId);
+
+  @override
+  Future<void> clearUserSession() async {
+    await _remote.clearAuthToken();
+  }
 }

@@ -49,6 +49,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (!mounted) return;
     if (success) {
+      if (_rememberMe) {
+        await auth.saveUserSession(auth.currentUser!.id);
+      } else {
+        await auth.clearUserSession();
+      }
+
       await Navigator.pushReplacement(
         context,
         MaterialPageRoute<void>(

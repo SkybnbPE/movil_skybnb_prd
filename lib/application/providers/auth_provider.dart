@@ -61,4 +61,31 @@ class AuthProvider extends ChangeNotifier {
     _error = null;
     notifyListeners();
   }
+
+  Future<bool> tryAutoLogin() async {
+    final hasToken = await _authRepository.hasSavedToken();
+    if (!hasToken) return false;
+
+    final userId = await _authRepository.getSavedUserId();
+    if (userId == null) return false;
+
+    try {
+      final user = await _authRepository.getUserProfile(userId);
+      if (user != null) {
+        _currentUser = user;
+        notifyListeners();
+        return true;
+      }
+      await _authRepository.clearUserSession();
+      return false;
+    } on Exception catch (_) {
+      await _authRepository.clearUserSession();
+      return false;
+    }
+  }
+
+  Future<void> saveUserSession(String userId) =>
+      _authRepository.saveUserSession(userId);
+
+  Future<void> clearUserSession() => _authRepository.clearUserSession();
 }

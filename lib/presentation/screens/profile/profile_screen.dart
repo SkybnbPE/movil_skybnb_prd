@@ -5,6 +5,7 @@ import 'package:skybnb/application/providers/auth_provider.dart';
 import 'package:skybnb/core/constants/app_colors.dart';
 import 'package:skybnb/core/constants/app_strings.dart';
 import 'package:skybnb/domain/models/user/user_entity.dart';
+import 'package:skybnb/presentation/screens/login/login_screen.dart';
 import 'package:skybnb/presentation/shared/section_card.dart';
 
 /// StatefulWidget: dispara carga del perfil al montar via initState.
@@ -63,6 +64,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const _VerifiedBadge(),
                       const SizedBox(height: 40),
                       _ContactInfoCard(user: provider.currentUser!),
+                      const SizedBox(height: 24),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: OutlinedButton.icon(
+                          icon: const Icon(Icons.logout, color: AppColors.error),
+                          label: const Text(
+                            AppStrings.logout,
+                            style: TextStyle(color: AppColors.error),
+                          ),
+                          style: OutlinedButton.styleFrom(
+                            side: const BorderSide(color: AppColors.error),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          onPressed: () async {
+                            await context.read<AuthProvider>().logout();
+                            if (context.mounted) {
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const LoginScreen(),
+                                ),
+                                (_) => false,
+                              );
+                            }
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),

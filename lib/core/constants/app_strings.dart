@@ -68,6 +68,7 @@ class AppStrings {
   static const String email = 'Email';
   static const String phone = 'Teléfono';
   static const String profileLoadError = 'No se pudo cargar el perfil';
+  static const String logout = 'Cerrar Sesión';
 
   // Months
   static const List<String> monthNames = [
