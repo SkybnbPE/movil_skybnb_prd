@@ -82,6 +82,6 @@ class ServiceLocator {
         getMovementsByReservationUseCase: getMovementsByReservationUseCase,
       );
 
-  /// Carga el token guardado en secure storage al iniciar la app.
-  static Future<void> loadSavedToken() => _remoteDataSource.loadSavedToken();
+  /// Carga la sesión guardada en secure storage al iniciar la app.
+  static Future<void> loadSavedSession() => _remoteDataSource.loadSavedSession();
 }

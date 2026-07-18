@@ -10,20 +10,12 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<UserEntity?> login(String username, String password) async {
+    // El backend retorna directamente el UserResponseDto (sin token).
     final data = await _remote.login(username, password);
-    
-    // Si el backend retorna un token en la raíz, lo guardamos.
-    final token = data['token'] as String?;
-    if (token != null) {
-      await _remote.setAuthToken(token);
-    }
-    
-    // El API podría retornar { token, user } o directamente el objeto del usuario
-    final userJson = data['user'] as Map<String, dynamic>? ?? data;
-    
-    if (userJson.isEmpty || !userJson.containsKey('id')) return null;
-    
-    return UserModel.fromJson(userJson).toEntity();
+
+    if (data.isEmpty || !data.containsKey('id')) return null;
+
+    return UserModel.fromJson(data).toEntity();
   }
 
   @override
@@ -38,7 +30,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<bool> hasSavedToken() => _remote.hasSavedToken();
+  Future<bool> hasSavedSession() => _remote.hasSavedSession();
 
   @override
   Future<String?> getSavedUserId() => _remote.getSavedUserId();

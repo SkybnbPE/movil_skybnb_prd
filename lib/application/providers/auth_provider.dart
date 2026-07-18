@@ -32,6 +32,10 @@ class AuthProvider extends ChangeNotifier {
     try {
       final user = await loginUseCase(username, password);
       _currentUser = user;
+      if (user != null) {
+        // ponytail: login persistente hasta logout explícito (estilo Instagram).
+        await _authRepository.saveUserSession(user.id);
+      }
       _isLoading = false;
       notifyListeners();
       return user != null;
@@ -63,12 +67,14 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<bool> tryAutoLogin() async {
-    final hasToken = await _authRepository.hasSavedToken();
-    if (!hasToken) return false;
+    final hasSession = await _authRepository.hasSavedSession();
+    if (!hasSession) return false;
 
     final userId = await _authRepository.getSavedUserId();
     if (userId == null) return false;
 
+    // ponytail: entra directo con el userId cacheado aunque falle la red.
+    // Solo se limpia la sesión si el usuario no existe (404 / user-not-found).
     try {
       final user = await _authRepository.getUserProfile(userId);
       if (user != null) {
@@ -79,8 +85,18 @@ class AuthProvider extends ChangeNotifier {
       await _authRepository.clearUserSession();
       return false;
     } on Exception catch (_) {
-      await _authRepository.clearUserSession();
-      return false;
+      // Fallo de red u otro: mantener sesión y entrar igual.
+      _currentUser = UserEntity(
+        id: userId,
+        username: '',
+        fullName: '',
+        dni: '',
+        phone: '',
+        email: '',
+        status: 'active',
+      );
+      notifyListeners();
+      return true;
     }
   }
 

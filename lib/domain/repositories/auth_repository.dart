@@ -13,8 +13,8 @@ abstract class AuthRepository {
   /// Limpia el token de autenticación almacenado.
   Future<void> clearToken();
 
-  /// Verifica si hay un token guardado en el dispositivo.
-  Future<bool> hasSavedToken();
+  /// Verifica si hay una sesión (userId) guardada en el dispositivo.
+  Future<bool> hasSavedSession();
 
   /// Obtiene el userId guardado en el dispositivo.
   Future<String?> getSavedUserId();

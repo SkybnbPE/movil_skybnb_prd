@@ -35,13 +35,14 @@ class ApiRemoteDataSource {
     await _secureStorage.delete(key: _userIdKey);
   }
 
-  Future<void> loadSavedToken() async {
+  Future<void> loadSavedSession() async {
     _authToken = await _secureStorage.read(key: _tokenKey);
   }
 
-  Future<bool> hasSavedToken() async {
-    final token = await _secureStorage.read(key: _tokenKey);
-    return token != null && token.isNotEmpty;
+  // ponytail: backend sin tokens; la sesión es el userId persistido.
+  Future<bool> hasSavedSession() async {
+    final userId = await _secureStorage.read(key: _userIdKey);
+    return userId != null && userId.isNotEmpty;
   }
 
   Future<void> setSavedUserId(String userId) async {

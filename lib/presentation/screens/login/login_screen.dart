@@ -21,7 +21,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
-  bool _rememberMe = true;
 
   @override
   void dispose() {
@@ -49,12 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (!mounted) return;
     if (success) {
-      if (_rememberMe) {
-        await auth.saveUserSession(auth.currentUser!.id);
-      } else {
-        await auth.clearUserSession();
-      }
-
+      // ponytail: la sesión se persiste dentro de AuthProvider.login().
       await Navigator.pushReplacement(
         context,
         MaterialPageRoute<void>(
@@ -114,18 +108,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () =>
                         setState(() => _obscurePassword = !_obscurePassword),
                   ),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: _rememberMe,
-                      activeColor: AppColors.primaryDark,
-                      onChanged: (v) =>
-                          setState(() => _rememberMe = v ?? false),
-                    ),
-                    const Text(AppStrings.rememberMe),
-                  ],
                 ),
                 const SizedBox(height: 24),
                 LoginButton(

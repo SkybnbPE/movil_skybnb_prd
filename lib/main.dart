@@ -21,7 +21,7 @@ Future<void> main() async {
     debugPrint('[WARN] .env not loaded: $e');
   }
   await initializeDateFormatting('es');
-  await ServiceLocator.loadSavedToken();
+  await ServiceLocator.loadSavedSession();
 
   // Captura errores no atrapados en la zona global
   runZonedGuarded(

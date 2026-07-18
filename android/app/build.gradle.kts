@@ -34,8 +34,8 @@ android {
         applicationId = "app.skybnb_app"
         minSdk = flutter.minSdkVersion
         targetSdk = 35
-        versionCode = 8
-        versionName = "1.0.8"
+        versionCode = 9
+        versionName = "1.0.9"
     }
 
     // Configuración de firma
