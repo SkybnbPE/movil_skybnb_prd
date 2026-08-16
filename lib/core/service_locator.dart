@@ -21,10 +21,11 @@ import 'package:skybnb/domain/usecases/reservation_usecases.dart';
 class ServiceLocator {
   ServiceLocator._();
 
-  static final String _baseUrl = String.fromEnvironment(
-    'API_BASE_URL',
-    defaultValue: dotenv.env['API_BASE_URL'] ?? '',
-  );
+  static const String _envBaseUrl = String.fromEnvironment('API_BASE_URL');
+
+  static final String _baseUrl = _envBaseUrl.isNotEmpty
+      ? _envBaseUrl
+      : (dotenv.env['API_BASE_URL'] ?? '');
 
   // ─── Shared HTTP client ───────────────────────────────────────────────────
   static final http.Client _httpClient = http.Client();
