@@ -1,11 +1,11 @@
 {
-    "name": "skybnb_app",
-    "short_name": "skybnb_app",
+    "name": "Skybnb",
+    "short_name": "Skybnb",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#FFEEF2",
+    "theme_color": "#E91E63",
+    "description": "Gestión de propiedades, reservaciones y seguimiento financiero para propietarios Skybnb.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
